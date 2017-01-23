@@ -1,4 +1,5 @@
 # Persian Date Picker Dialog
+[![](https://jitpack.io/v/hamsaadev/Persian-Date-Picker-Dialog.svg)](https://jitpack.io/#hamsaadev/Persian-Date-Picker-Dialog)
 
 ![Hero Image](https://raw.githubusercontent.com/hamsaadev/Persian-Date-Picker-Dialog/master/screenshot/heroimage.jpg)
 
@@ -29,7 +30,7 @@ allprojects {
 Step 2. Add the dependency
 ```groovy
 dependencies {
-    compile ''
+    compile 'com.github.hamsaadev:Persian-Date-Picker-Dialog:V1.0'
 }
 ```
 
