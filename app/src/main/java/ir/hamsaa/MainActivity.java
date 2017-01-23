@@ -26,11 +26,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void showCalendar(View v) {
         Typeface typeface = Typeface.createFromAsset(getAssets(), "Shabnam-Light-FD.ttf");
+
+        PersianCalendar initDate = new PersianCalendar();
+        initDate.setPersianDate(1370, 3, 13);
+
         picker = new PersianDatePickerDialog(this)
                 .setPositiveButtonString("باشه")
                 .setNegativeButton("بیخیال")
                 .setTodayButton("امروز")
                 .setTodayButtonVisible(true)
+                .setInitDate(initDate)
                 .setMaxYear(1395)
                 .setMinYear(1300)
                 .setActionTextColor(Color.GRAY)
@@ -43,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onDisimised() {
-                        
+
                     }
                 });
 

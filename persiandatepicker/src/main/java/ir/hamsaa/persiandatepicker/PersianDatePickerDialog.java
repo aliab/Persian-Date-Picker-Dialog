@@ -29,9 +29,8 @@ public class PersianDatePickerDialog {
     private Listener listener;
     private int maxYear = 0;
     private int minYear = 0;
-    private Date initDate;
+    private PersianCalendar initDate;
     private PersianCalendar pCalendar;
-    private Date pickerDate;
     private Typeface typeFace;
     private String todayButtonString = "امروز";
     private boolean todayButtonVisiblity = false;
@@ -62,7 +61,7 @@ public class PersianDatePickerDialog {
         return this;
     }
 
-    public PersianDatePickerDialog setInitDate(Date initDate) {
+    public PersianDatePickerDialog setInitDate(PersianCalendar initDate) {
         this.initDate = initDate;
         return this;
     }
@@ -113,6 +112,7 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+
     public void show() {
 
         pCalendar = new PersianCalendar();
@@ -135,9 +135,8 @@ public class PersianDatePickerDialog {
         }
 
         if (initDate != null) {
-            datePicker.setDisplayDate(initDate);
+            datePicker.setDisplayPersianDate(initDate);
         }
-
 
         if (typeFace != null) {
             dateText.setTypeface(typeFace);
@@ -149,7 +148,6 @@ public class PersianDatePickerDialog {
         possitiveButton.setTextColor(actionColor);
         negativeButton.setTextColor(actionColor);
         todayButton.setTextColor(actionColor);
-        datePicker.setDividerColor(actionColor);
 
         possitiveButton.setText(positiveButtonString);
         negativeButton.setText(negativeButtonString);
@@ -198,7 +196,7 @@ public class PersianDatePickerDialog {
         todayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
                 datePicker.setDisplayDate(new Date());
 
                 if (maxYear > 0) {
