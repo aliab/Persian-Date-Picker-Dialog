@@ -1,35 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
-        <NumberPicker
+        <ir.hamsaa.persiandatepicker.view.PersianNumberPicker
             android:id="@+id/yearNumberPicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1" />
 
-        <NumberPicker
+        <ir.hamsaa.persiandatepicker.view.PersianNumberPicker
             android:id="@+id/monthNumberPicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1" />
 
-        <NumberPicker
+        <ir.hamsaa.persiandatepicker.view.PersianNumberPicker
             android:id="@+id/dayNumberPicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/descriptionTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" 
-        android:visibility="gone"/>
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone" />
 
 </LinearLayout>
