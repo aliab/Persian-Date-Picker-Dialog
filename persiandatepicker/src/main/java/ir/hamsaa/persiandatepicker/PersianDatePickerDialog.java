@@ -143,6 +143,7 @@ public class PersianDatePickerDialog {
             possitiveButton.setTypeface(typeFace);
             negativeButton.setTypeface(typeFace);
             todayButton.setTypeface(typeFace);
+            datePicker.setTypeFace(typeFace);
         }
 
         possitiveButton.setTextColor(actionColor);
