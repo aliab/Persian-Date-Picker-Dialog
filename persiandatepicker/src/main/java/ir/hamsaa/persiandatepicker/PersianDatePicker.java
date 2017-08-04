@@ -333,13 +333,16 @@ class PersianDatePicker extends LinearLayout {
                 day = 29;
             }
         }
-        dayNumberPicker.setValue(day);
+//        dayNumberPicker.setValue(day);
 
-        minYear = year - yearRange;
-        maxYear = year + yearRange;
-        yearNumberPicker.setMinValue(minYear);
-        yearNumberPicker.setMaxValue(maxYear);
-
+//        minYear = year - yearRange;
+//        maxYear = year + yearRange;
+//        yearNumberPicker.setMinValue(minYear);
+//        yearNumberPicker.setMaxValue(maxYear);
+//
+        selectedYear = year;
+        selectedMonth = month;
+        selectedDay = day;
         yearNumberPicker.setValue(year);
         monthNumberPicker.setValue(month);
         dayNumberPicker.setValue(day);

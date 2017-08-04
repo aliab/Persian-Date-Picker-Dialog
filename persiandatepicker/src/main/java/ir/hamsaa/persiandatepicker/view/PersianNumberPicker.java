@@ -6,6 +6,12 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 
 /**
  * Created by aliabdolahi on 1/23/17.
@@ -51,12 +57,10 @@ public class PersianNumberPicker extends NumberPicker {
         super.invalidate();
     }
 
-
     private void updateView(View view) {
-        if (view instanceof EditText) {
-            if (typeFace != null) {
-                ((EditText) view).setTypeface(typeFace);
-            }
+        if (view instanceof TextView) {
+            if (PersianDatePickerDialog.typeFace != null)
+                ((TextView) view).setTypeface(PersianDatePickerDialog.typeFace);
         }
     }
 
