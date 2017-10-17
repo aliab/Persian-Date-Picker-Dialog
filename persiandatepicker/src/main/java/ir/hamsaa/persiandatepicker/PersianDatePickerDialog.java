@@ -31,7 +31,7 @@ public class PersianDatePickerDialog {
     private int minYear = 0;
     private PersianCalendar initDate;
     private PersianCalendar pCalendar;
-    private Typeface typeFace;
+    public static Typeface typeFace;
     private String todayButtonString = "امروز";
     private boolean todayButtonVisiblity = false;
     private int actionColor = Color.GRAY;
@@ -143,6 +143,7 @@ public class PersianDatePickerDialog {
             possitiveButton.setTypeface(typeFace);
             negativeButton.setTypeface(typeFace);
             todayButton.setTypeface(typeFace);
+            datePicker.setTypeFace(typeFace);
         }
 
         possitiveButton.setTextColor(actionColor);
