@@ -78,6 +78,10 @@ class PersianDatePicker extends LinearLayout {
             minYear = selectedYear - yearRange;
         }
 
+        if (maxYear < selectedYear) {
+            maxYear = selectedYear + yearRange;
+        }
+
         a.recycle();
     }
 
@@ -169,7 +173,6 @@ class PersianDatePicker extends LinearLayout {
         }
     }
 
-    private static final String TAG = "PersianDatePicker";
 
     private void updateViewData() {
 
@@ -186,12 +189,16 @@ class PersianDatePicker extends LinearLayout {
         }
 
         yearNumberPicker.setMinValue(minYear);
-
         yearNumberPicker.setMaxValue(maxYear);
 
-        if (selectedYear > maxYear || selectedYear < minYear) {
-            throw new IllegalArgumentException(String.format("Selected year (%d) must be between minYear(%d) and maxYear(%d)", selectedYear, minYear, maxYear));
+
+        if (selectedYear > maxYear) {
+            selectedYear = maxYear;
         }
+        if (selectedYear < minYear) {
+            selectedYear = minYear;
+        }
+
         yearNumberPicker.setValue(selectedYear);
         yearNumberPicker.setOnValueChangedListener(dateChangeListener);
 

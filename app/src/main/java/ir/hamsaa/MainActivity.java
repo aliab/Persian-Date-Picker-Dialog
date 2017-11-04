@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton("بیخیال")
                 .setTodayButton("امروز")
                 .setTodayButtonVisible(true)
-                .setInitDate(initDate)
-                .setMaxYear(1396)
                 .setMinYear(1300)
+                .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
+                .setInitDate(initDate)
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
                 .setListener(new Listener() {

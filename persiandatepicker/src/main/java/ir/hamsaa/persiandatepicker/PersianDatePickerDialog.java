@@ -23,6 +23,8 @@ import ir.hamsaa.persiandatepicker.util.PersianHelper;
 
 public class PersianDatePickerDialog {
 
+    public static final int THIS_YEAR = -1;
+
     private Context context;
     private String positiveButtonString = "تایید";
     private String negativeButtonString = "انصراف";
@@ -33,7 +35,7 @@ public class PersianDatePickerDialog {
     private PersianCalendar pCalendar;
     public static Typeface typeFace;
     private String todayButtonString = "امروز";
-    private boolean todayButtonVisiblity = false;
+    private boolean todayButtonVisibility = false;
     private int actionColor = Color.GRAY;
 
     public PersianDatePickerDialog(Context context) {
@@ -77,7 +79,7 @@ public class PersianDatePickerDialog {
     }
 
     public PersianDatePickerDialog setTodayButtonVisible(boolean todayButtonVisiblity) {
-        this.todayButtonVisiblity = todayButtonVisiblity;
+        this.todayButtonVisibility = todayButtonVisiblity;
         return this;
     }
 
@@ -102,13 +104,13 @@ public class PersianDatePickerDialog {
         return this;
     }
 
-    public PersianDatePickerDialog setActionTextColor(@ColorInt int colorint) {
-        this.actionColor = colorint;
+    public PersianDatePickerDialog setActionTextColor(@ColorInt int colorInt) {
+        this.actionColor = colorInt;
         return this;
     }
 
-    public PersianDatePickerDialog setActionTextColorResource(@ColorRes int colorint) {
-        this.actionColor = ContextCompat.getColor(context, colorint);
+    public PersianDatePickerDialog setActionTextColorResource(@ColorRes int colorInt) {
+        this.actionColor = ContextCompat.getColor(context, colorInt);
         return this;
     }
 
@@ -116,7 +118,6 @@ public class PersianDatePickerDialog {
     public void show() {
 
         pCalendar = new PersianCalendar();
-
 
         View v = View.inflate(context, R.layout.dialog_picker, null);
         final PersianDatePicker datePicker = v.findViewById(R.id.datePicker);
@@ -128,6 +129,8 @@ public class PersianDatePickerDialog {
 
         if (maxYear > 0) {
             datePicker.setMaxYear(maxYear);
+        } else if (maxYear == THIS_YEAR) {
+            datePicker.setMaxYear(pCalendar.getPersianYear());
         }
 
         if (minYear > 0) {
@@ -154,7 +157,7 @@ public class PersianDatePickerDialog {
         negativeButton.setText(negativeButtonString);
         todayButton.setText(todayButtonString);
 
-        if (todayButtonVisiblity) {
+        if (todayButtonVisibility) {
             todayButton.setVisibility(View.VISIBLE);
         }
 
@@ -217,7 +220,11 @@ public class PersianDatePickerDialog {
     }
 
     private void updateView(TextView dateText) {
-        String date = pCalendar.getPersianWeekDayName() + " " + pCalendar.getPersianDay() + " " + pCalendar.getPersianMonthName() + " " + pCalendar.getPersianYear();
+        String date =
+                pCalendar.getPersianWeekDayName() + " " +
+                        pCalendar.getPersianDay() + " " +
+                        pCalendar.getPersianMonthName() + " " +
+                        pCalendar.getPersianYear();
         dateText.setText(PersianHelper.toPersianNumber(date));
     }
 
