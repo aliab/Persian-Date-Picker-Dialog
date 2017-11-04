@@ -30,7 +30,7 @@ allprojects {
 Step 2. Add the dependency
 ```groovy
 dependencies {
-    compile 'com.github.hamsaadev:Persian-Date-Picker-Dialog:V1.0'
+    compile 'com.github.hamsaadev:Persian-Date-Picker-Dialog:V1.1'
 }
 ```
 
