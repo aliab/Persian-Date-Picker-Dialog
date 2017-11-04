@@ -44,7 +44,7 @@ Then in your Java Code, you use it like below.
                 .setTodayButton("امروز")
                 .setTodayButtonVisible(true)
                 .setInitDate(initDate)
-                .setMaxYear(1395)
+                .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
                 .setMinYear(1300)
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
