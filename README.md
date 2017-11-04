@@ -55,7 +55,7 @@ Then in your Java Code, you use it like below.
                     }
 
                     @Override
-                    public void onDisimised() {
+                    public void onDismissed() {
 
                     }
                 });

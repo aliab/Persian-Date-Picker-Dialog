@@ -38,12 +38,12 @@ class PersianDatePicker extends LinearLayout {
 
     private int minYear;
     private int maxYear;
-    private int yearRange;
 
     private boolean displayDescription;
     private TextView descriptionTextView;
     private Typeface typeFace;
     private int dividerColor;
+    private int yearRange;
 
     public PersianDatePicker(Context context) {
         this(context, null, -1);
@@ -72,6 +72,12 @@ class PersianDatePicker extends LinearLayout {
         selectedDay = a.getInteger(R.styleable.PersianDatePicker_selectedDay, pCalendar.getPersianDay());
         selectedYear = a.getInt(R.styleable.PersianDatePicker_selectedYear, pCalendar.getPersianYear());
         selectedMonth = a.getInteger(R.styleable.PersianDatePicker_selectedMonth, pCalendar.getPersianMonth());
+
+        // if you pass selected year before min year, then we need to push min year to before that
+        if (minYear > selectedYear) {
+            minYear = selectedYear - yearRange;
+        }
+
         a.recycle();
     }
 
@@ -85,10 +91,10 @@ class PersianDatePicker extends LinearLayout {
         View view = inflater.inflate(R.layout.sl_persian_date_picker, this);
 
         // get views
-        yearNumberPicker = (PersianNumberPicker) view.findViewById(R.id.yearNumberPicker);
-        monthNumberPicker = (PersianNumberPicker) view.findViewById(R.id.monthNumberPicker);
-        dayNumberPicker = (PersianNumberPicker) view.findViewById(R.id.dayNumberPicker);
-        descriptionTextView = (TextView) view.findViewById(R.id.descriptionTextView);
+        yearNumberPicker = view.findViewById(R.id.yearNumberPicker);
+        monthNumberPicker = view.findViewById(R.id.monthNumberPicker);
+        dayNumberPicker = view.findViewById(R.id.dayNumberPicker);
+        descriptionTextView = view.findViewById(R.id.descriptionTextView);
 
 
         yearNumberPicker.setFormatter(new NumberPicker.Formatter() {
@@ -163,6 +169,8 @@ class PersianDatePicker extends LinearLayout {
         }
     }
 
+    private static final String TAG = "PersianDatePicker";
+
     private void updateViewData() {
 
         if (typeFace != null) {
@@ -178,8 +186,8 @@ class PersianDatePicker extends LinearLayout {
         }
 
         yearNumberPicker.setMinValue(minYear);
-        yearNumberPicker.setMaxValue(maxYear);
 
+        yearNumberPicker.setMaxValue(maxYear);
 
         if (selectedYear > maxYear || selectedYear < minYear) {
             throw new IllegalArgumentException(String.format("Selected year (%d) must be between minYear(%d) and maxYear(%d)", selectedYear, minYear, maxYear));
@@ -188,7 +196,7 @@ class PersianDatePicker extends LinearLayout {
         yearNumberPicker.setOnValueChangedListener(dateChangeListener);
 
 		/*
-         * initializng monthNumberPicker
+         * initialing monthNumberPicker
 		 */
 
         monthNumberPicker.setMinValue(1);
@@ -204,7 +212,7 @@ class PersianDatePicker extends LinearLayout {
         monthNumberPicker.setOnValueChangedListener(dateChangeListener);
 
 		/*
-         * initializiing dayNumberPicker
+         * initializing dayNumberPicker
 		 */
         dayNumberPicker.setMinValue(1);
         dayNumberPicker.setMaxValue(31);
@@ -333,16 +341,24 @@ class PersianDatePicker extends LinearLayout {
                 day = 29;
             }
         }
-//        dayNumberPicker.setValue(day);
 
-//        minYear = year - yearRange;
-//        maxYear = year + yearRange;
-//        yearNumberPicker.setMinValue(minYear);
-//        yearNumberPicker.setMaxValue(maxYear);
-//
+
         selectedYear = year;
         selectedMonth = month;
         selectedDay = day;
+
+        // if you pass selected year before min year, then we need to push min year to before that
+        if (minYear > selectedYear) {
+            minYear = selectedYear - yearRange;
+            yearNumberPicker.setMinValue(minYear);
+        }
+
+        // if you pass selected year after max year, then we need to push max year to after that
+        if (maxYear < selectedYear) {
+            maxYear = selectedYear + yearRange;
+            yearNumberPicker.setMaxValue(maxYear);
+        }
+
         yearNumberPicker.setValue(year);
         monthNumberPicker.setValue(month);
         dayNumberPicker.setValue(day);

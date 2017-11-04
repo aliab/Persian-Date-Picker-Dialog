@@ -119,11 +119,11 @@ public class PersianDatePickerDialog {
 
 
         View v = View.inflate(context, R.layout.dialog_picker, null);
-        final PersianDatePicker datePicker = (PersianDatePicker) v.findViewById(R.id.datePicker);
-        final TextView dateText = (TextView) v.findViewById(R.id.dateText);
-        final AppCompatButton possitiveButton = (AppCompatButton) v.findViewById(R.id.positive_button);
-        final AppCompatButton negativeButton = (AppCompatButton) v.findViewById(R.id.negative_button);
-        final AppCompatButton todayButton = (AppCompatButton) v.findViewById(R.id.today_button);
+        final PersianDatePicker datePicker = v.findViewById(R.id.datePicker);
+        final TextView dateText = v.findViewById(R.id.dateText);
+        final AppCompatButton positiveButton = v.findViewById(R.id.positive_button);
+        final AppCompatButton negativeButton = v.findViewById(R.id.negative_button);
+        final AppCompatButton todayButton = v.findViewById(R.id.today_button);
 
 
         if (maxYear > 0) {
@@ -140,17 +140,17 @@ public class PersianDatePickerDialog {
 
         if (typeFace != null) {
             dateText.setTypeface(typeFace);
-            possitiveButton.setTypeface(typeFace);
+            positiveButton.setTypeface(typeFace);
             negativeButton.setTypeface(typeFace);
             todayButton.setTypeface(typeFace);
             datePicker.setTypeFace(typeFace);
         }
 
-        possitiveButton.setTextColor(actionColor);
+        positiveButton.setTextColor(actionColor);
         negativeButton.setTextColor(actionColor);
         todayButton.setTextColor(actionColor);
 
-        possitiveButton.setText(positiveButtonString);
+        positiveButton.setText(positiveButtonString);
         negativeButton.setText(negativeButtonString);
         todayButton.setText(todayButtonString);
 
@@ -178,13 +178,13 @@ public class PersianDatePickerDialog {
             @Override
             public void onClick(View view) {
                 if (listener != null) {
-                    listener.onDisimised();
+                    listener.onDismissed();
                 }
                 dialog.dismiss();
             }
         });
 
-        possitiveButton.setOnClickListener(new View.OnClickListener() {
+        positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (listener != null) {

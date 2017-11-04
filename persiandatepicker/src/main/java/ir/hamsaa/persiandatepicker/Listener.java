@@ -9,5 +9,5 @@ import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 public interface Listener {
     void onDateSelected(PersianCalendar persianCalendar);
 
-    void onDisimised();
+    void onDismissed();
 }
