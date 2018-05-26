@@ -2,7 +2,7 @@
  * Persian Calendar see: http://code.google.com/p/persian-calendar/
    Copyright (C) 2012  Mortezaadi@gmail.com
    PersianCalendar.java
-   
+
    Persian Calendar is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
@@ -19,10 +19,11 @@
 package ir.hamsaa.persiandatepicker.util;
 
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * 
+ *
  * <strong> Persian(Shamsi) calendar </strong>
  * <p>
  * </p>
@@ -51,14 +52,14 @@ import java.util.TimeZone;
  * not synchronized with the phases of the Moon. </p>
  * <p>
  * </p>
- * 
+ *
  * <p>
  * <strong>PersianCalendar</strong> by extending Default GregorianCalendar
  * provides capabilities such as:
  * </p>
  * <p>
  * </p>
- * 
+ *
  * <li>you can set the date in Persian by setPersianDate(persianYear,
  * persianMonth, persianDay) and get the Gregorian date or vice versa</li>
  * <p>
@@ -84,29 +85,29 @@ import java.util.TimeZone;
  * </p>
  * <p>
  * </p>
- * 
+ *
  * <pre>
  * {@code
  *       PersianCalendar persianCal = new PersianCalendar();
  *       System.out.println(persianCal.getPersianShortDate());
- *       
+ *
  *       persianCal.set(1982, Calendar.MAY, 22);
  *       System.out.println(persianCal.getPersianShortDate());
- *       
+ *
  *       persianCal.setDelimiter(" , ");
  *       persianCal.parse("1361 , 03 , 01");
  *       System.out.println(persianCal.getPersianShortDate());
- *       
+ *
  *       persianCal.setPersianDate(1361, 3, 1);
  *       System.out.println(persianCal.getPersianLongDate());
  *       System.out.println(persianCal.getTime());
- *       
+ *
  *       persianCal.addPersianDate(Calendar.MONTH, 33);
  *       persianCal.addPersianDate(Calendar.YEAR, 5);
  *       persianCal.addPersianDate(Calendar.DATE, 50);
- * 
+ *
  * }
- * 
+ *
  * <pre>
  * @author Morteza  contact: <a href="mailto:Mortezaadi@gmail.com">Mortezaadi@gmail.com</a>
  * @version 1.1
@@ -129,7 +130,7 @@ public class PersianCalendar extends GregorianCalendar {
 
 	/**
 	 * default constructor
-	 * 
+	 *
 	 * most of the time we don't care about TimeZone when we persisting Date or
 	 * doing some calculation on date. <strong> Default TimeZone was set to
 	 * "GMT" </strong> in order to make developer to work more convenient with
@@ -142,7 +143,7 @@ public class PersianCalendar extends GregorianCalendar {
 
 	/**
 	 * default constructor
-	 * 
+	 *
 	 * most of the time we don't care about TimeZone when we persisting Date or
 	 * doing some calculation on date. <strong> Default TimeZone was set to
 	 * "GMT" </strong> in order to make developer to work more convenient with
@@ -150,7 +151,7 @@ public class PersianCalendar extends GregorianCalendar {
 	 * GregorianCalendar by calling setTimeZone()
 	 */
 	public PersianCalendar() {
-		setTimeZone(TimeZone.getTimeZone("GMT"));
+		super(TimeZone.getDefault(), Locale.getDefault());
 	}
 
 	/**
@@ -158,21 +159,17 @@ public class PersianCalendar extends GregorianCalendar {
 	 * fields(persianYear, persianMonth, persianDay)
 	 */
 	protected void calculatePersianDate() {
-		long julianDate = ((long) Math.floor((getTimeInMillis() - PersianCalendarConstants.MILLIS_JULIAN_EPOCH)) / PersianCalendarConstants.MILLIS_OF_A_DAY);
-		long PersianRowDate = PersianCalendarUtils.julianToPersian(julianDate);
-		long year = PersianRowDate >> 16;
-		int month = (int) (PersianRowDate & 0xff00) >> 8;
-		int day = (int) (PersianRowDate & 0xff);
-		this.persianYear = (int) (year > 0 ? year : year - 1);
-		this.persianMonth = month;
-		this.persianDay = day;
+		YearMonthDay persianYearMonthDay = PersianCalendar.gregorianToJalali(new YearMonthDay(this.get(PersianCalendar.YEAR), this.get(PersianCalendar.MONTH), this.get(PersianCalendar.DAY_OF_MONTH)));
+		this.persianYear = persianYearMonthDay.year;
+		this.persianMonth = persianYearMonthDay.month;
+		this.persianDay = persianYearMonthDay.day;
 	}
 
 	/**
-	 * 
+	 *
 	 * Determines if the given year is a leap year in persian calendar. Returns
 	 * true if the given year is a leap year.
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isPersianLeapYear() {
@@ -183,7 +180,7 @@ public class PersianCalendar extends GregorianCalendar {
 	/**
 	 * set the persian date it converts PersianDate to the Julian and assigned
 	 * equivalent milliseconds to the instance
-	 * 
+	 *
 	 * @param persianYear
 	 * @param persianMonth
 	 * @param persianDay
@@ -192,7 +189,8 @@ public class PersianCalendar extends GregorianCalendar {
 		this.persianYear = persianYear;
 		this.persianMonth = persianMonth;
 		this.persianDay = persianDay;
-		setTimeInMillis(convertToMilis(PersianCalendarUtils.persianToJulian(this.persianYear > 0 ? this.persianYear : this.persianYear + 1, this.persianMonth - 1, this.persianDay)));
+		YearMonthDay gregorianYearMonthDay = persianToGregorian(new YearMonthDay(persianYear, this.persianMonth - 1, persianDay));
+		this.set(gregorianYearMonthDay.year, gregorianYearMonthDay.month, gregorianYearMonthDay.day);
 	}
 
 	public int getPersianYear() {
@@ -201,7 +199,7 @@ public class PersianCalendar extends GregorianCalendar {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return int persian month number
 	 */
 	public int getPersianMonth() {
@@ -210,7 +208,7 @@ public class PersianCalendar extends GregorianCalendar {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return String persian month name
 	 */
 	public String getPersianMonthName() {
@@ -219,7 +217,7 @@ public class PersianCalendar extends GregorianCalendar {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return int Persian day in month
 	 */
 	public int getPersianDay() {
@@ -228,7 +226,7 @@ public class PersianCalendar extends GregorianCalendar {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return String Name of the day in week
 	 */
 	public String getPersianWeekDayName() {
@@ -252,7 +250,7 @@ public class PersianCalendar extends GregorianCalendar {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return String of Persian Date ex: شنبه 01 خرداد 1361
 	 */
 	public String getPersianLongDate() {
@@ -264,7 +262,7 @@ public class PersianCalendar extends GregorianCalendar {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return String of persian date formatted by
 	 *         'YYYY[delimiter]mm[delimiter]dd' default delimiter is '/'
 	 */
@@ -285,7 +283,7 @@ public class PersianCalendar extends GregorianCalendar {
 	/**
 	 * add specific amout of fields to the current date for now doesnt handle
 	 * before 1 farvardin hejri (before epoch)
-	 * 
+	 *
 	 * @param field
 	 * @param amount
 	 *            <pre>
@@ -295,7 +293,7 @@ public class PersianCalendar extends GregorianCalendar {
 	 *  addPersianDate(Calendar.MONTH, 3);
 	 *  }
 	 * </pre>
-	 * 
+	 *
 	 *            u can also use Calendar.HOUR_OF_DAY,Calendar.MINUTE,
 	 *            Calendar.SECOND, Calendar.MILLISECOND etc
 	 */
@@ -322,10 +320,10 @@ public class PersianCalendar extends GregorianCalendar {
 
 	/**
 	 * <pre>
-	 *    use <code>{@link PersianDateParser}</code> to parse string 
+	 *    use <code>{@link PersianDateParser}</code> to parse string
 	 *    and get the Persian Date.
 	 * </pre>
-	 * 
+	 *
 	 * @see PersianDateParser
 	 * @param dateString
 	 */
@@ -340,7 +338,7 @@ public class PersianCalendar extends GregorianCalendar {
 
 	/**
 	 * assign delimiter to use as a separator of date fields.
-	 * 
+	 *
 	 * @param delimiter
 	 */
 	public void setDelimiter(String delimiter) {
@@ -381,4 +379,168 @@ public class PersianCalendar extends GregorianCalendar {
 		super.setTimeZone(zone);
 		calculatePersianDate();
 	}
+
+	// Helper Functions
+	private static int gregorianDaysInMonth[] = {31, 28, 31, 30, 31, 30, 31,
+		31, 30, 31, 30, 31};
+	private static int persianDaysInMonth[] = {31, 31, 31, 31, 31, 31, 30, 30,
+		30, 30, 30, 29};
+
+	private static YearMonthDay gregorianToJalali(YearMonthDay gregorian) {
+
+		if (gregorian.getMonth() > 11 || gregorian.getMonth() < -11) {
+			throw new IllegalArgumentException();
+		}
+		int persianYear;
+		int persianMonth;
+		int persianDay;
+
+		int gregorianDayNo, persianDayNo;
+		int persianNP;
+		int i;
+
+		gregorian.setYear(gregorian.getYear() - 1600);
+		gregorian.setDay(gregorian.getDay() - 1);
+
+		gregorianDayNo = 365 * gregorian.getYear() + (int) Math.floor((gregorian.getYear() + 3) / 4)
+			- (int) Math.floor((gregorian.getYear() + 99) / 100)
+			+ (int) Math.floor((gregorian.getYear() + 399) / 400);
+		for (i = 0; i < gregorian.getMonth(); ++i) {
+			gregorianDayNo += gregorianDaysInMonth[i];
+		}
+
+		if (gregorian.getMonth() > 1 && ((gregorian.getYear() % 4 == 0 && gregorian.getYear() % 100 != 0)
+			|| (gregorian.getYear() % 400 == 0))) {
+			++gregorianDayNo;
+		}
+
+		gregorianDayNo += gregorian.getDay();
+
+		persianDayNo = gregorianDayNo - 79;
+
+		persianNP = (int) Math.floor(persianDayNo / 12053);
+		persianDayNo = persianDayNo % 12053;
+
+		persianYear = 979 + 33 * persianNP + 4 * (int) (persianDayNo / 1461);
+		persianDayNo = persianDayNo % 1461;
+
+		if (persianDayNo >= 366) {
+			persianYear += (int) Math.floor((persianDayNo - 1) / 365);
+			persianDayNo = (persianDayNo - 1) % 365;
+		}
+
+		for (i = 0; i < 11 && persianDayNo >= persianDaysInMonth[i]; ++i) {
+			persianDayNo -= persianDaysInMonth[i];
+		}
+		persianMonth = i;
+		persianDay = persianDayNo + 1;
+
+		return new YearMonthDay(persianYear, persianMonth, persianDay);
+	}
+
+
+	private static YearMonthDay persianToGregorian(YearMonthDay persian) {
+		if (persian.getMonth() > 11 || persian.getMonth() < -11) {
+			throw new IllegalArgumentException();
+		}
+
+		int gregorianYear;
+		int gregorianMonth;
+		int gregorianDay;
+
+		int gregorianDayNo, persianDayNo;
+		int leap;
+
+		int i;
+		persian.setYear(persian.getYear() - 979);
+		persian.setDay(persian.getDay() - 1);
+
+		persianDayNo = 365 * persian.getYear() + (int) (persian.getYear() / 33) * 8
+			+ (int) Math.floor(((persian.getYear() % 33) + 3) / 4);
+		for (i = 0; i < persian.getMonth(); ++i) {
+			persianDayNo += persianDaysInMonth[i];
+		}
+
+		persianDayNo += persian.getDay();
+
+		gregorianDayNo = persianDayNo + 79;
+
+		gregorianYear = 1600 + 400 * (int) Math.floor(gregorianDayNo / 146097); /* 146097 = 365*400 + 400/4 - 400/100 + 400/400 */
+		gregorianDayNo = gregorianDayNo % 146097;
+
+		leap = 1;
+		if (gregorianDayNo >= 36525) /* 36525 = 365*100 + 100/4 */ {
+			gregorianDayNo--;
+			gregorianYear += 100 * (int) Math.floor(gregorianDayNo / 36524); /* 36524 = 365*100 + 100/4 - 100/100 */
+			gregorianDayNo = gregorianDayNo % 36524;
+
+			if (gregorianDayNo >= 365) {
+				gregorianDayNo++;
+			} else {
+				leap = 0;
+			}
+		}
+
+		gregorianYear += 4 * (int) Math.floor(gregorianDayNo / 1461); /* 1461 = 365*4 + 4/4 */
+		gregorianDayNo = gregorianDayNo % 1461;
+
+		if (gregorianDayNo >= 366) {
+			leap = 0;
+
+			gregorianDayNo--;
+			gregorianYear += (int) Math.floor(gregorianDayNo / 365);
+			gregorianDayNo = gregorianDayNo % 365;
+		}
+
+		for (i = 0; gregorianDayNo >= gregorianDaysInMonth[i] + ((i == 1 && leap == 1) ? i : 0); i++) {
+			gregorianDayNo -= gregorianDaysInMonth[i] + ((i == 1 && leap == 1) ? i : 0);
+		}
+		gregorianMonth = i;
+		gregorianDay = gregorianDayNo + 1;
+
+		return new YearMonthDay(gregorianYear, gregorianMonth, gregorianDay);
+
+	}
+
+	static class YearMonthDay {
+
+		YearMonthDay(int year, int month, int day) {
+			this.year = year;
+			this.month = month;
+			this.day = day;
+		}
+
+		private int year;
+		private int month;
+		private int day;
+
+		public int getYear() {
+			return year;
+		}
+
+		public void setYear(int year) {
+			this.year = year;
+		}
+
+		public int getMonth() {
+			return month;
+		}
+
+		public void setMonth(int month) {
+			this.month = month;
+		}
+
+		public int getDay() {
+			return day;
+		}
+
+		public void setDay(int date) {
+			this.day = date;
+		}
+
+		public String toString() {
+			return getYear() + "/" + getMonth() + "/" + getDay();
+		}
+	}
+
 }
