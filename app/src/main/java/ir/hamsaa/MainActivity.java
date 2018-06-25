@@ -15,44 +15,47 @@ import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    private PersianDatePickerDialog picker;
+  private PersianDatePickerDialog picker;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+  }
 
 
-    public void showCalendar(View v) {
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "Shabnam-Light-FD.ttf");
+  public void showCalendar(View v) {
+    Typeface typeface = Typeface.createFromAsset(getAssets(), "Shabnam-Light-FD.ttf");
 
-        PersianCalendar initDate = new PersianCalendar();
-        initDate.setPersianDate(1370, 3, 13);
+    PersianCalendar initDate = new PersianCalendar();
+    initDate.setPersianDate(1370, 3, 13);
 
-        picker = new PersianDatePickerDialog(this)
-                .setPositiveButtonString("باشه")
-                .setNegativeButton("بیخیال")
-                .setTodayButton("امروز")
-                .setTodayButtonVisible(true)
-                .setMinYear(1300)
-                .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
-                .setInitDate(initDate)
-                .setActionTextColor(Color.GRAY)
-                .setTypeFace(typeface)
-                .setListener(new Listener() {
-                    @Override
-                    public void onDateSelected(PersianCalendar persianCalendar) {
-                        Toast.makeText(MainActivity.this, persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
-                    }
+    picker = new PersianDatePickerDialog(this)
+      .setPositiveButtonString("باشه")
+      .setNegativeButton("بیخیال")
+      .setTodayButton("امروز")
+      .setTodayButtonVisible(true)
+      .setMinYear(1300)
+      .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
+      .setInitDate(initDate)
+      .setActionTextColor(Color.GRAY)
+      .setTypeFace(typeface)
+//      .setDateTextColor(Color.RED)
+//      .setSelectedDateTextColor(Color.BLUE)
+//      .setTextSize(30f)
+      .setListener(new Listener() {
+        @Override
+        public void onDateSelected(PersianCalendar persianCalendar) {
+          Toast.makeText(MainActivity.this, persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
+        }
 
-                    @Override
-                    public void onDismissed() {
+        @Override
+        public void onDismissed() {
 
-                    }
-                });
+        }
+      });
 
-        picker.show();
-    }
+    picker.show();
+  }
 
 }
