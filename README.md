@@ -26,7 +26,7 @@ allprojects {
 Step 2. Add the dependency
 ```groovy
 dependencies {
-    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:V1.3'
+    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.4'
 }
 ```
 
@@ -67,6 +67,31 @@ If you need to set an initial date, just simply set it like below.
 
  persianDatePickerDialog.setInitDate(initDate)
 ```
+
+## Public Methods
+
+| Name | Description |
+|:----:|:----:|
+|setMaxYear(int)| set maximum year can be selected|
+|setMinYear(int)| set minimum year can be selected|
+|setTypeFace(TypeFace)| set dialog typeface|
+|setInitDate(PersianCalendar)| set date that dialog will launch on that|
+|setInitDate(PersianCalendar,boolean)| set date that dialog will launch on that and force min/max year to be compatible with it|
+|setPositiveButtonString(String)| set positive button text|
+|setPositiveButtonResource(@StringRes int)| set positive button text from strings.xml|
+|setNegativeButton(String)| set negative button text|
+|setNegativeButtonResource(@StringRes int)| set negative button text from strings.xml|
+|setTodayButton(String)| set today button text|
+|setTodayButtonResource(@StringRes int)| set today button text from strings.xml|
+|setTodayButtonVisible(boolean)| set today button visible/invisible|
+|setActionTextColor(@ColorInt int)| set dialog buttons texts color|
+|setActionTextColorResource(@ColorRes int)| set dialog buttons texts color form colors.xml|
+|setCancelable(boolean)| set dialog cancelable or not|
+|setBackgroundColor(@ColorInt int)| set dialog background color|
+|setPickerBackgroundColor(@ColorInt int)| set date pickers background color|
+|setPickerBackgroundDrawable(@DrawableRes int)| set date pickers background drawable from res/drawable folder|
+|setListener(Listener)| set dialog callback listener|
+
 
 ## CREDITS
 * Special Thanks to [PersianDatePicker](https://github.com/alibehzadian/PersianDatePicker).
