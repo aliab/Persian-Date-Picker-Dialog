@@ -13,9 +13,12 @@
             android:id="@+id/yearNumberPicker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="2dp"
-            android:layout_weight="1" />
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:background="#fff" />
 
         <ir.hamsaa.persiandatepicker.view.PersianNumberPicker
             android:id="@+id/monthNumberPicker"
@@ -23,15 +26,19 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="#fff" />
 
         <ir.hamsaa.persiandatepicker.view.PersianNumberPicker
             android:id="@+id/dayNumberPicker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="4dp"
-            android:layout_weight="1" />
+            android:layout_marginStart="2dp"
+            android:layout_weight="1"
+            android:background="#fff" />
     </LinearLayout>
 
     <TextView

@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -127,6 +128,18 @@ class PersianDatePicker extends LinearLayout {
 
         // update view
         updateViewData();
+    }
+
+    public void setBackgroundColor(@ColorInt int color) {
+        yearNumberPicker.setBackgroundColor(color);
+        monthNumberPicker.setBackgroundColor(color);
+        dayNumberPicker.setBackgroundColor(color);
+    }
+
+    public void setBackgroundDrawable(@DrawableRes int drawableBg) {
+        yearNumberPicker.setBackgroundResource(drawableBg);
+        monthNumberPicker.setBackgroundResource(drawableBg);
+        dayNumberPicker.setBackgroundResource(drawableBg);
     }
 
     public void setMaxYear(int maxYear) {

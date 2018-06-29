@@ -5,12 +5,14 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -38,8 +40,12 @@ public class PersianDatePickerDialog {
     private String todayButtonString = "امروز";
     private boolean todayButtonVisibility = false;
     private int actionColor = Color.GRAY;
+    private int backgroundColor = Color.WHITE;
+    private int titleColor = Color.parseColor("#111111");
     private boolean cancelable = true;
     private boolean forceMode;
+    private int pickerBackgroundColor;
+    private int pickerBackgroundDrawable;
 
     public PersianDatePickerDialog(Context context) {
         this.context = context;
@@ -127,6 +133,25 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setBackgroundColor(@ColorInt int bgColor) {
+        this.backgroundColor = bgColor;
+        return this;
+    }
+
+    public PersianDatePickerDialog setTitleColor(@ColorInt int titleColor) {
+        this.titleColor = titleColor;
+        return this;
+    }
+
+    public PersianDatePickerDialog setPickerBackgroundColor(@ColorInt int color) {
+        this.pickerBackgroundColor = color;
+        return this;
+    }
+
+    public PersianDatePickerDialog setPickerBackgroundDrawable(@DrawableRes int drawableBg) {
+        this.pickerBackgroundDrawable = drawableBg;
+        return this;
+    }
 
     public void show() {
 
@@ -138,6 +163,17 @@ public class PersianDatePickerDialog {
         final AppCompatButton positiveButton = v.findViewById(R.id.positive_button);
         final AppCompatButton negativeButton = v.findViewById(R.id.negative_button);
         final AppCompatButton todayButton = v.findViewById(R.id.today_button);
+        final LinearLayout container = v.findViewById(R.id.container);
+
+        container.setBackgroundColor(backgroundColor);
+        dateText.setTextColor(titleColor);
+
+
+        if (pickerBackgroundColor != 0) {
+            datePicker.setBackgroundColor(pickerBackgroundColor);
+        } else if (pickerBackgroundDrawable != 0) {
+            datePicker.setBackgroundDrawable(pickerBackgroundDrawable);
+        }
 
         if (maxYear > 0) {
             datePicker.setMaxYear(maxYear);
@@ -252,5 +288,6 @@ public class PersianDatePickerDialog {
                         pCalendar.getPersianYear();
         dateText.setText(PersianHelper.toPersianNumber(date));
     }
+
 
 }
