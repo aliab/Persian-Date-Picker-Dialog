@@ -9,6 +9,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class PersianDatePickerDialog {
     private boolean todayButtonVisibility = false;
     private int actionColor = Color.GRAY;
     private boolean cancelable = true;
+    private boolean forceMode;
 
     public PersianDatePickerDialog(Context context) {
         this.context = context;
@@ -65,6 +67,11 @@ public class PersianDatePickerDialog {
     }
 
     public PersianDatePickerDialog setInitDate(PersianCalendar initDate) {
+        return setInitDate(initDate, false);
+    }
+
+    public PersianDatePickerDialog setInitDate(PersianCalendar initDate, boolean force) {
+        this.forceMode = force;
         this.initDate = initDate;
         return this;
     }
@@ -132,19 +139,31 @@ public class PersianDatePickerDialog {
         final AppCompatButton negativeButton = v.findViewById(R.id.negative_button);
         final AppCompatButton todayButton = v.findViewById(R.id.today_button);
 
-
         if (maxYear > 0) {
             datePicker.setMaxYear(maxYear);
         } else if (maxYear == THIS_YEAR) {
+            maxYear = pCalendar.getPersianYear();
             datePicker.setMaxYear(pCalendar.getPersianYear());
         }
 
         if (minYear > 0) {
             datePicker.setMinYear(minYear);
+        } else if (minYear == THIS_YEAR) {
+            minYear = pCalendar.getPersianYear();
+            datePicker.setMinYear(pCalendar.getPersianYear());
         }
 
         if (initDate != null) {
-            datePicker.setDisplayPersianDate(initDate);
+            int initYear = initDate.getPersianYear();
+            if (initYear > maxYear || initYear < minYear) {
+                Log.e("PERSIAN CALENDAR", "init year is more/less than minYear/maxYear");
+                if (forceMode) {
+                    datePicker.setDisplayPersianDate(initDate);
+                }
+            } else {
+                datePicker.setDisplayPersianDate(initDate);
+            }
+
         }
 
         if (typeFace != null) {
