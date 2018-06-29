@@ -59,15 +59,15 @@ class PersianDatePicker extends LinearLayout {
         yearRange = a.getInteger(R.styleable.PersianDatePicker_yearRange, 10);
         /*
          * Initializing yearNumberPicker min and max values If minYear and
-		 * maxYear attributes are not set, use (current year - 10) as min and
-		 * (current year + 10) as max.
-		 */
+         * maxYear attributes are not set, use (current year - 10) as min and
+         * (current year + 10) as max.
+         */
         minYear = a.getInt(R.styleable.PersianDatePicker_minYear, pCalendar.getPersianYear() - yearRange);
         maxYear = a.getInt(R.styleable.PersianDatePicker_maxYear, pCalendar.getPersianYear() + yearRange);
         displayMonthNames = a.getBoolean(R.styleable.PersianDatePicker_displayMonthNames, false);
         /*
          * displayDescription
-		 */
+         */
         displayDescription = a.getBoolean(R.styleable.PersianDatePicker_displayDescription, false);
         selectedDay = a.getInteger(R.styleable.PersianDatePicker_selectedDay, pCalendar.getPersianDay());
         selectedYear = a.getInt(R.styleable.PersianDatePicker_selectedYear, pCalendar.getPersianYear());
@@ -88,11 +88,8 @@ class PersianDatePicker extends LinearLayout {
     public PersianDatePicker(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        // get layout inflater
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         // inflate views
-        View view = inflater.inflate(R.layout.sl_persian_date_picker, this);
+        View view = LayoutInflater.from(context).inflate(R.layout.sl_persian_date_picker, this);
 
         // get views
         yearNumberPicker = view.findViewById(R.id.yearNumberPicker);
@@ -202,9 +199,9 @@ class PersianDatePicker extends LinearLayout {
         yearNumberPicker.setValue(selectedYear);
         yearNumberPicker.setOnValueChangedListener(dateChangeListener);
 
-		/*
+        /*
          * initialing monthNumberPicker
-		 */
+         */
 
         monthNumberPicker.setMinValue(1);
         monthNumberPicker.setMaxValue(12);
@@ -218,9 +215,9 @@ class PersianDatePicker extends LinearLayout {
         monthNumberPicker.setValue(selectedMonth);
         monthNumberPicker.setOnValueChangedListener(dateChangeListener);
 
-		/*
+        /*
          * initializing dayNumberPicker
-		 */
+         */
         dayNumberPicker.setMinValue(1);
         dayNumberPicker.setMaxValue(31);
         if (selectedDay > 31 || selectedDay < 1) {
@@ -259,7 +256,7 @@ class PersianDatePicker extends LinearLayout {
             if (month < 7) {
                 dayNumberPicker.setMinValue(1);
                 dayNumberPicker.setMaxValue(31);
-            } else if (month > 6 && month < 12) {
+            } else if (month < 12) {
                 if (day == 31) {
                     dayNumberPicker.setValue(30);
                 }

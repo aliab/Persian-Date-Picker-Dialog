@@ -37,6 +37,7 @@ public class PersianDatePickerDialog {
     private String todayButtonString = "امروز";
     private boolean todayButtonVisibility = false;
     private int actionColor = Color.GRAY;
+    private boolean cancelable = true;
 
     public PersianDatePickerDialog(Context context) {
         this.context = context;
@@ -114,6 +115,11 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setCancelable(boolean cancelable) {
+        this.cancelable = cancelable;
+        return this;
+    }
+
 
     public void show() {
 
@@ -174,7 +180,7 @@ public class PersianDatePickerDialog {
 
         final AlertDialog dialog = new AlertDialog.Builder(context)
                 .setView(v)
-                .setCancelable(true)
+                .setCancelable(cancelable)
                 .create();
 
         negativeButton.setOnClickListener(new View.OnClickListener() {
