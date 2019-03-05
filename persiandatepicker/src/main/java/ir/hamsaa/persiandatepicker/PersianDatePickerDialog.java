@@ -13,6 +13,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -27,6 +28,9 @@ import ir.hamsaa.persiandatepicker.util.PersianHelper;
 public class PersianDatePickerDialog {
 
     public static final int THIS_YEAR = -1;
+    public static final int NO_TITLE = 0;
+    public static final int DAY_MONTH_YEAR = 1;
+    public static final int WEEKDAY_DAY_MONTH_YEAR = 2;
 
     private Context context;
     private String positiveButtonString = "تایید";
@@ -46,6 +50,7 @@ public class PersianDatePickerDialog {
     private boolean forceMode;
     private int pickerBackgroundColor;
     private int pickerBackgroundDrawable;
+    private int titleType = 0;
 
     public PersianDatePickerDialog(Context context) {
         this.context = context;
@@ -152,6 +157,12 @@ public class PersianDatePickerDialog {
         this.pickerBackgroundDrawable = drawableBg;
         return this;
     }
+
+    public PersianDatePickerDialog setTitleType(int titleType) {
+        this.titleType = titleType;
+        return this;
+    }
+
 
     public void show() {
 
@@ -281,12 +292,33 @@ public class PersianDatePickerDialog {
     }
 
     private void updateView(TextView dateText) {
-        String date =
-                pCalendar.getPersianWeekDayName() + " " +
+        String date;
+        switch (titleType){
+            case NO_TITLE:
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) dateText.getLayoutParams();
+                layoutParams.setMargins(0,0,0,30);
+                dateText.setLayoutParams(layoutParams);
+                break;
+            case DAY_MONTH_YEAR:
+                date = pCalendar.getPersianDay() + " " +
+                        pCalendar.getPersianMonthName() + " " +
+                        pCalendar.getPersianYear();
+
+                dateText.setText(PersianHelper.toPersianNumber(date));
+                break;
+            case WEEKDAY_DAY_MONTH_YEAR:
+                date = pCalendar.getPersianWeekDayName() + " " +
                         pCalendar.getPersianDay() + " " +
                         pCalendar.getPersianMonthName() + " " +
                         pCalendar.getPersianYear();
-        dateText.setText(PersianHelper.toPersianNumber(date));
+
+                dateText.setText(PersianHelper.toPersianNumber(date));
+                break;
+            default:
+                Log.d("PersianDatePickerDialog" , "never should be here");
+                break;
+        }
+
     }
 
 
