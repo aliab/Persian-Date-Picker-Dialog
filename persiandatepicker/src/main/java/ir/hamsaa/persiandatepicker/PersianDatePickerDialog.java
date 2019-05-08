@@ -46,6 +46,9 @@ public class PersianDatePickerDialog {
     private boolean forceMode;
     private int pickerBackgroundColor;
     private int pickerBackgroundDrawable;
+    private Integer textColor;
+    private Integer dividerColor;
+    private Integer dividerHeight;
 
     public PersianDatePickerDialog(Context context) {
         this.context = context;
@@ -153,6 +156,21 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setTextColor(@ColorInt int color) {
+        this.textColor = color;
+        return this;
+    }
+
+    public PersianDatePickerDialog setDividerColor(@ColorInt int color) {
+        this.dividerColor = color;
+        return this;
+    }
+
+    public PersianDatePickerDialog setDividerHeight(int height) {
+        this.dividerHeight = height;
+        return this;
+    }
+
     public void show() {
 
         pCalendar = new PersianCalendar();
@@ -208,6 +226,18 @@ public class PersianDatePickerDialog {
             negativeButton.setTypeface(typeFace);
             todayButton.setTypeface(typeFace);
             datePicker.setTypeFace(typeFace);
+        }
+
+        if (textColor != null) {
+            datePicker.setTextColor(textColor);
+        }
+
+        if (dividerColor != null) {
+            datePicker.setDividerColor(dividerColor);
+        }
+
+        if (dividerHeight != null) {
+            datePicker.setDividerHeight(dividerHeight);
         }
 
         positiveButton.setTextColor(actionColor);

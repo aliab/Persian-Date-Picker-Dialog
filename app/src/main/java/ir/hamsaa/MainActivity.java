@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
                 .setInitDate(initDate)
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
+                .setTextColor(getResources().getColor(R.color.colorPrimary))
+                .setDividerColor(getResources().getColor(R.color.colorAccent))
+                .setDividerHeight(10)
                 .setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {
@@ -74,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 .setBackgroundColor(Color.BLACK)
                 .setTitleColor(Color.WHITE)
                 .setActionTextColor(Color.WHITE)
-                .setPickerBackgroundDrawable(R.drawable.darkmode_bg)
+                //.setPickerBackgroundDrawable(R.drawable.darkmode_bg)
                 .setCancelable(false)
                 .setListener(new Listener() {
                     @Override

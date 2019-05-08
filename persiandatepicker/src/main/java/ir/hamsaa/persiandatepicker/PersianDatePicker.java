@@ -1,8 +1,8 @@
 package ir.hamsaa.persiandatepicker;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Parcel;
@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.Date;
 
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
@@ -43,7 +44,9 @@ class PersianDatePicker extends LinearLayout {
     private boolean displayDescription;
     private TextView descriptionTextView;
     private Typeface typeFace;
-    private int dividerColor;
+    private Integer textColor = null;
+    private Integer dividerColor = null;
+    private Integer dividerHeight = null;
     private int yearRange;
 
     public PersianDatePicker(Context context) {
@@ -157,32 +160,63 @@ class PersianDatePicker extends LinearLayout {
         updateViewData();
     }
 
+    public void setTextColor(@ColorInt int color) {
+        this.textColor = color;
+        updateViewData();
+    }
+
     public void setDividerColor(@ColorInt int color) {
         this.dividerColor = color;
         updateViewData();
     }
 
-    private void setDividerColor(NumberPicker picker, int color) {
+    public void setDividerHeight(@ColorInt int height) {
+        this.dividerHeight = height;
+        updateViewData();
+    }
 
-        java.lang.reflect.Field[] pickerFields = NumberPicker.class.getDeclaredFields();
-        for (java.lang.reflect.Field pf : pickerFields) {
-            if (pf.getName().equals("mSelectionDivider")) {
-                pf.setAccessible(true);
-                try {
-                    ColorDrawable colorDrawable = new ColorDrawable(color);
-                    pf.set(picker, colorDrawable);
-                } catch (IllegalArgumentException e) {
-                    e.printStackTrace();
-                } catch (Resources.NotFoundException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                break;
+    private void setTextColor(NumberPicker picker) {
+        try {
+            Field selectorWheelPaint = NumberPicker.class.getDeclaredField("mSelectorWheelPaint");
+
+            selectorWheelPaint.setAccessible(true);
+            ((Paint)selectorWheelPaint.get(picker)).setColor(textColor);
+
+            final int count = picker.getChildCount();
+            for(int i = 0; i < count; i++){
+                View child = picker.getChildAt(i);
+                if(child instanceof TextView)
+                    ((TextView)child).setTextColor(textColor);
             }
+            picker.invalidate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
+    private void setDividerColor(NumberPicker picker) {
+        try {
+            Field selectionDivider = NumberPicker.class.getDeclaredField("mSelectionDivider");
+
+            ColorDrawable colorDrawable = new ColorDrawable(dividerColor);
+            selectionDivider.setAccessible(true);
+            selectionDivider.set(picker, colorDrawable);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setDividerHeight(NumberPicker picker) {
+        try {
+            Field selectionDividerHeight = NumberPicker.class.getDeclaredField("mSelectionDividerHeight");
+
+            selectionDividerHeight.setAccessible(true);
+            selectionDividerHeight.set(picker, dividerHeight);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void updateViewData() {
 
@@ -192,10 +226,22 @@ class PersianDatePicker extends LinearLayout {
             dayNumberPicker.setTypeFace(typeFace);
         }
 
-        if (dividerColor > 0) {
-            setDividerColor(yearNumberPicker, dividerColor);
-            setDividerColor(monthNumberPicker, dividerColor);
-            setDividerColor(dayNumberPicker, dividerColor);
+        if (textColor != null) {
+            setTextColor(yearNumberPicker);
+            setTextColor(monthNumberPicker);
+            setTextColor(dayNumberPicker);
+        }
+
+        if (dividerColor != null) {
+            setDividerColor(yearNumberPicker);
+            setDividerColor(monthNumberPicker);
+            setDividerColor(dayNumberPicker);
+        }
+
+        if (dividerHeight != null) {
+            setDividerHeight(yearNumberPicker);
+            setDividerHeight(monthNumberPicker);
+            setDividerHeight(dayNumberPicker);
         }
 
         yearNumberPicker.setMinValue(minYear);
