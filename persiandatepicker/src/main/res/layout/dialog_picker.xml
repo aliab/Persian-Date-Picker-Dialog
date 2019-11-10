@@ -5,14 +5,16 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layoutDirection="ltr"
+    android:orientation="vertical"
+    tools:ignore="RtlHardcoded,UnusedAttribute">
 
     <TextView
         android:id="@+id/dateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:layout_marginTop="30dp"
+        android:layout_marginBottom="40dp"
         android:gravity="center"
         android:textSize="16sp"
         tools:text="سه شنبه" />
@@ -37,8 +39,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/touchable_background"
             android:padding="6dp"
-            android:text="ok"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:text="ok" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/negative_button"
@@ -47,8 +49,8 @@
             android:layout_marginLeft="2dp"
             android:background="@drawable/touchable_background"
             android:padding="6dp"
-            android:text="cancel"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:text="cancel" />
 
         <View
             android:layout_width="0dp"
@@ -61,9 +63,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/touchable_background"
             android:padding="6dp"
-            android:text="today"
             android:textSize="12sp"
             android:visibility="gone"
+            tools:text="today"
             tools:visibility="visible" />
 
     </LinearLayout>
