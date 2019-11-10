@@ -11,5 +11,6 @@
         <attr name="yearRange" format="integer" />
         <attr name="displayDescription" format="boolean" />
     </declare-styleable>
+    <attr name="numberPickerTheme" format="reference"/>
 
 </resources>
