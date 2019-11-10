@@ -11,5 +11,6 @@
 
     <style name="customNumberPicker">
         <item name="android:textColorPrimary">@android:color/holo_green_dark</item>
+        <item name="colorControlNormal">@android:color/holo_purple</item>
     </style>
 </resources>
