@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
                 .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
+                .setShowInBottomSheet(true)
                 .setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {

@@ -1,8 +1,10 @@
 package ir.hamsaa.persiandatepicker;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,11 +14,15 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.Date;
 
@@ -53,6 +59,7 @@ public class PersianDatePickerDialog {
     private int pickerBackgroundColor;
     private int pickerBackgroundDrawable;
     private int titleType = 0;
+    private boolean showInBottomSheet;
 
     public PersianDatePickerDialog(Context context) {
         this.context = context;
@@ -165,6 +172,10 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setShowInBottomSheet(boolean b) {
+        this.showInBottomSheet = b;
+        return this;
+    }
 
     public void show() {
 
@@ -246,10 +257,19 @@ public class PersianDatePickerDialog {
             }
         });
 
-        final AlertDialog dialog = new AlertDialog.Builder(context)
-                .setView(v)
-                .setCancelable(cancelable)
-                .create();
+
+        final AppCompatDialog dialog;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && showInBottomSheet) {
+            dialog = new BottomSheetDialog(context);
+            dialog.setContentView(v);
+            dialog.setCancelable(cancelable);
+            dialog.create();
+        } else {
+            dialog = new AlertDialog.Builder(context)
+                    .setView(v)
+                    .setCancelable(cancelable)
+                    .create();
+        }
 
         negativeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -327,6 +347,5 @@ public class PersianDatePickerDialog {
         }
 
     }
-
 
 }
