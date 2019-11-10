@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 .setInitDate(initDate)
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
+                .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
                 .setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {
@@ -75,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
                 .setBackgroundColor(Color.BLACK)
                 .setTitleColor(Color.WHITE)
                 .setActionTextColor(Color.WHITE)
-//                .setPickerBackgroundDrawable(R.drawable.darkmode_bg)
+                .setPickerBackgroundDrawable(R.drawable.darkmode_bg)
+                .setTitleType(PersianDatePickerDialog.DAY_MONTH_YEAR)
                 .setCancelable(false)
                 .setListener(new Listener() {
                     @Override
