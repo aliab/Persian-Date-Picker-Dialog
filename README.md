@@ -26,7 +26,7 @@ allprojects {
 Step 2. Add the dependency
 ```groovy
 dependencies {
-    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.5.0'
+    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.5.1'
 }
 ```
 
@@ -45,6 +45,7 @@ Then in your Java Code, you use it like below.
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
                 .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
+                .setShowInBottomSheet(true)
                 .setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {
@@ -68,6 +69,9 @@ If you need to set an initial date, just simply set it like below.
 
  persianDatePickerDialog.setInitDate(initDate)
 ```
+
+## Support for BottomSheet
+For the OS version after lollipop, if you set `setShowInBottomSheet(true)` it will show date picker in bottomsheet dialog.
 
 ## Public Methods
 
