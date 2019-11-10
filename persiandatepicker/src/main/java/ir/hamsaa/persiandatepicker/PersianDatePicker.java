@@ -28,7 +28,7 @@ import ir.hamsaa.persiandatepicker.view.PersianNumberPicker;
 
 class PersianDatePicker extends LinearLayout {
 
-    private final PersianCalendar pCalendar;
+    private PersianCalendar pCalendar;
     private int selectedMonth;
     private int selectedYear;
     private int selectedDay;
@@ -292,6 +292,15 @@ class PersianDatePicker extends LinearLayout {
                 }
             }
 
+            PersianCalendar displayPersianDate = new PersianCalendar();
+            displayPersianDate.setPersianDate(
+                    yearNumberPicker.getValue(),
+                    monthNumberPicker.getValue(),
+                    dayNumberPicker.getValue()
+            );
+
+            pCalendar = displayPersianDate;
+
             // Set description
             if (displayDescription) {
                 descriptionTextView.setText(getDisplayPersianDate().getPersianLongDate());
@@ -330,36 +339,25 @@ class PersianDatePicker extends LinearLayout {
     }
 
     public Date getDisplayDate() {
-        PersianCalendar displayPersianDate = new PersianCalendar();
-        displayPersianDate.setPersianDate(yearNumberPicker.getValue(), monthNumberPicker.getValue(), dayNumberPicker.getValue());
-        return displayPersianDate.getTime();
+        return pCalendar.getTime();
     }
 
     public void setDisplayDate(Date displayDate) {
-        setDisplayPersianDate(new PersianCalendar(displayDate.getTime()));
+        PersianCalendar persianCalendar = new PersianCalendar(displayDate.getTime());
+        setDisplayPersianDate(persianCalendar);
     }
 
     public PersianCalendar getDisplayPersianDate() {
-        PersianCalendar displayPersianDate = new PersianCalendar();
-        displayPersianDate.setPersianDate(yearNumberPicker.getValue(), monthNumberPicker.getValue(), dayNumberPicker.getValue());
-        return displayPersianDate;
+        return pCalendar;
     }
 
     public void setDisplayPersianDate(PersianCalendar displayPersianDate) {
-        int year = displayPersianDate.getPersianYear();
-        int month = displayPersianDate.getPersianMonth();
-        int day = displayPersianDate.getPersianDay();
-        if (month > 6 && month < 12 && day == 31) {
-            day = 30;
-        } else {
-            boolean isLeapYear = PersianCalendarUtils.isPersianLeapYear(year);
-            if (isLeapYear && day == 31) {
-                day = 30;
-            } else if (day > 29) {
-                day = 29;
-            }
-        }
 
+        pCalendar = displayPersianDate;
+
+        final int year = displayPersianDate.getPersianYear();
+        final int month = displayPersianDate.getPersianMonth();
+        final int day = displayPersianDate.getPersianDay();
 
         selectedYear = year;
         selectedMonth = month;
@@ -377,9 +375,25 @@ class PersianDatePicker extends LinearLayout {
             yearNumberPicker.setMaxValue(maxYear);
         }
 
-        yearNumberPicker.setValue(year);
-        monthNumberPicker.setValue(month);
-        dayNumberPicker.setValue(day);
+        yearNumberPicker.post(new Runnable() {
+            @Override
+            public void run() {
+                yearNumberPicker.setValue(year);
+            }
+        });
+        monthNumberPicker.post(new Runnable() {
+            @Override
+            public void run() {
+                monthNumberPicker.setValue(month);
+
+            }
+        });
+        dayNumberPicker.post(new Runnable() {
+            @Override
+            public void run() {
+                dayNumberPicker.setValue(day);
+            }
+        });
     }
 
     @Override

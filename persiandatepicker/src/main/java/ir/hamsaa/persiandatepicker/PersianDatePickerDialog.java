@@ -286,7 +286,12 @@ public class PersianDatePickerDialog {
                 }
 
                 pCalendar = datePicker.getDisplayPersianDate();
-                updateView(dateText);
+                dateText.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateView(dateText);
+                    }
+                }, 100);
             }
         });
 
@@ -295,10 +300,10 @@ public class PersianDatePickerDialog {
 
     private void updateView(TextView dateText) {
         String date;
-        switch (titleType){
+        switch (titleType) {
             case NO_TITLE:
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) dateText.getLayoutParams();
-                layoutParams.setMargins(0,0,0,30);
+                layoutParams.setMargins(0, 0, 0, 30);
                 dateText.setLayoutParams(layoutParams);
                 break;
             case DAY_MONTH_YEAR:
@@ -317,7 +322,7 @@ public class PersianDatePickerDialog {
                 dateText.setText(PersianHelper.toPersianNumber(date));
                 break;
             default:
-                Log.d("PersianDatePickerDialog" , "never should be here");
+                Log.d("PersianDatePickerDialog", "never should be here");
                 break;
         }
 
