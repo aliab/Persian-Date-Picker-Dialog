@@ -31,7 +31,7 @@
         android:paddingLeft="4dp"
         android:paddingRight="4dp">
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/positive_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             android:text="ok"
             android:textSize="12sp" />
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/negative_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <android.support.v7.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/today_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
