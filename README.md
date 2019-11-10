@@ -26,7 +26,7 @@ allprojects {
 Step 2. Add the dependency
 ```groovy
 dependencies {
-    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.4'
+    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.5.0'
 }
 ```
 
@@ -39,11 +39,12 @@ Then in your Java Code, you use it like below.
                 .setNegativeButton("بیخیال")
                 .setTodayButton("امروز")
                 .setTodayButtonVisible(true)
-                .setInitDate(initDate)
-                .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
                 .setMinYear(1300)
+                .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
+                .setInitDate(initDate)
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
+                .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
                 .setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {
@@ -89,13 +90,36 @@ If you need to set an initial date, just simply set it like below.
 |setCancelable(boolean)| set dialog cancelable or not|
 |setBackgroundColor(@ColorInt int)| set dialog background color|
 |setPickerBackgroundColor(@ColorInt int)| set date pickers background color|
+|setTitleType(NO_TITLE/DAY_MONTH_YEAR/WEEKDAY_DAY_MONTH_YEAR)|It will handle title show scenarios|
 |setPickerBackgroundDrawable(@DrawableRes int)| set date pickers background drawable from res/drawable folder|
 |setListener(Listener)| set dialog callback listener|
 
+## STYLING
+If you want to change picker text color or divider color you can set it via an easy style
+in your base application Theme, add 
+```xml
+ <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+         
+         <!-- Refrence your picker theme here -->
+        <item name="numberPickerTheme">@style/customNumberPicker</item>
+ </style>
+
+ <!-- Here is your custom date picker theme -->
+ <style name="customNumberPicker">
+        <!-- use this for text color -->
+        <item name="android:textColorPrimary">@android:color/holo_green_dark</item>
+         
+        <!-- use this for divider color -->
+        <item name="colorControlNormal">@android:color/holo_purple</item>
+ </style>
+```
 
 ## CREDITS
 * Special Thanks to [PersianDatePicker](https://github.com/alibehzadian/PersianDatePicker).
-
 
 ## License
 ```
