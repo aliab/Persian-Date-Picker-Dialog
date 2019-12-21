@@ -46,7 +46,7 @@ public class PersianDatePickerDialog {
     private Listener listener;
     private int maxYear = 0;
     private int minYear = 0;
-    private PersianCalendar initDate;
+    private PersianCalendar initDate = new PersianCalendar();
     private PersianCalendar pCalendar;
     public static Typeface typeFace;
     private String todayButtonString = "امروز";
