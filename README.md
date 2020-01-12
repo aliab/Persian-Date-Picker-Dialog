@@ -49,6 +49,14 @@ Then in your Java Code, you use it like below.
                 .setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {
+                    Log.d(TAG, "onDateSelected: "+persianCalendar.getGregorianChange());//Fri Oct 15 03:25:44 GMT+04:30 1582
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.getTimeInMillis());//1583253636577
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.getTime());//Tue Mar 03 20:10:36 GMT+03:30 2020
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.getDelimiter());//  /
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.getPersianLongDate());// سه‌شنبه  13  اسفند  1398
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.getPersianLongDateAndTime()); //سه‌شنبه  13  اسفند  1398 ساعت 20:10:36
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.getPersianMonthName()); //اسفند
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.isPersianLeapYear());//false
                         Toast.makeText(context, persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
                     }
 
