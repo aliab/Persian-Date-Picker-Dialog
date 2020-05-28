@@ -184,6 +184,12 @@ class PersianDatePicker extends LinearLayout {
         }
     }
 
+    public void disableSoftKeyboard() {
+        yearNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+        monthNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+        dayNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+    }
+
 
     private void updateViewData() {
 

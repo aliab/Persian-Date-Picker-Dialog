@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPickerBackgroundDrawable(R.drawable.darkmode_bg)
                 .setTitleType(PersianDatePickerDialog.DAY_MONTH_YEAR)
                 .setCancelable(false)
+                .setDisableSoftKeyboard(true)
                 .setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {

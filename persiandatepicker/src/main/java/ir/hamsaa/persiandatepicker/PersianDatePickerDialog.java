@@ -60,6 +60,7 @@ public class PersianDatePickerDialog {
     private int pickerBackgroundDrawable;
     private int titleType = 0;
     private boolean showInBottomSheet;
+    private boolean disableSoftKeyboard = true;
 
     public PersianDatePickerDialog(Context context) {
         this.context = context;
@@ -177,6 +178,11 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setDisableSoftKeyboard(boolean b) {
+        this.disableSoftKeyboard = b;
+        return this;
+    }
+
     public void show() {
 
         pCalendar = new PersianCalendar();
@@ -256,6 +262,10 @@ public class PersianDatePickerDialog {
                 updateView(dateText);
             }
         });
+
+        if (disableSoftKeyboard) {
+            datePicker.disableSoftKeyboard();
+        }
 
 
         final AppCompatDialog dialog;
