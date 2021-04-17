@@ -1,11 +1,10 @@
-package tw.nekomimi.nekogram.shamsicalendar;
+package ir.hamsaa.persiandatepicker.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import tw.nekomimi.nekogram.NekoConfig;
 
 public class PersianDate {
 
@@ -191,48 +190,6 @@ public class PersianDate {
   public void setDelimiter(String delimiter) {
       this.delimiter = delimiter;
   }
-
-  private String formatToMilitary(int i) {
-    return i < 9 ? "0" + i : String.valueOf(i);
-  }
-
-  public String getPersianShortDate() {
-    if (NekoConfig.displayPersianCalendarByLatin) {
-        return "" + formatToMilitary(this.getShYear()) + this.delimiter + formatToMilitary(getShMonth() + 1) + this.delimiter + formatToMilitary(this.getShDay());
-    } else {
-        return LanguageUtils.getPersianNumbers("" + formatToMilitary(this.getShYear()) + this.delimiter + formatToMilitary(this.getShMonth() + 1) + this.delimiter + formatToMilitary(this.getShDay()));
-    }
-  }
-
-  public String getPersianNormalDate() {
-    if (NekoConfig.displayPersianCalendarByLatin) {
-      return this.getShDay() + " " + this.monthNamesLatin() + " " + this.getShYear();
-    } else {
-      return LanguageUtils.getPersianNumbers(String.valueOf(this.getShDay())) + " " +  this.monthName() + " " + LanguageUtils.getPersianNumbers(String.valueOf(this.getShYear()));
-    }
-  }
-
-  //like 9 شهریور
-  public String getPersianMonthDay() {
-    if (NekoConfig.displayPersianCalendarByLatin) {
-      return this.getShDay() + " " + this.monthNamesLatin();
-    } else {
-      return LanguageUtils.getPersianNumbers(String.valueOf(this.getShDay())) + " " + this.monthName();
-    }
-  }
-
-  	/**
-	 *
-	 * @return String of Persian Date ex: شنبه 01 خرداد 1361
-	 */
-	public String getPersianLongDate() {
-    if (NekoConfig.displayPersianCalendarByLatin) {
-		  return dayOfWeek() + " " + this.getShDay() + " " + this.monthNamesLatin() + " " + this.getShDay();
-    } else {
-      return dayOfWeek() + " " + LanguageUtils.getPersianNumbers(String.valueOf(this.getShDay())) + " " + this.monthName() + " " + LanguageUtils.getPersianNumbers(String.valueOf(this.getShYear()));
-    }
-	}
-
 
   /**
    * init without time
