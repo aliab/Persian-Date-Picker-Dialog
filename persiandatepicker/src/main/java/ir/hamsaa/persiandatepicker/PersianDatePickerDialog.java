@@ -91,6 +91,21 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setInitDate(Long timestamp) {
+        this.initDate.setDate(timestamp);
+        return this;
+    }
+
+    public PersianDatePickerDialog setInitDate(Date date) {
+        this.initDate.setDate(date);
+        return this;
+    }
+
+    public PersianDatePickerDialog setInitDate(int persianYear, int persianMonth, int persianDay) {
+        this.initDate.setDate(persianYear, persianMonth, persianDay);
+        return this;
+    }
+
     public PersianDatePickerDialog setInitDate(PersianPickerDate initDate) {
         return setInitDate(initDate, false);
     }
