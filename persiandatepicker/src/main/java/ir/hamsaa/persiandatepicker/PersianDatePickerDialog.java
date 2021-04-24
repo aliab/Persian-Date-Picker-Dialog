@@ -3,7 +3,6 @@ package ir.hamsaa.persiandatepicker;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -277,11 +276,10 @@ public class PersianDatePickerDialog {
 
 
         final AppCompatDialog dialog;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && showInBottomSheet) {
+        if (showInBottomSheet) {
             dialog = new BottomSheetDialog(context);
             dialog.setContentView(v);
             dialog.setCancelable(cancelable);
-            dialog.create();
         } else {
             dialog = new AlertDialog.Builder(context)
                     .setView(v)
