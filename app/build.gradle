@@ -1,18 +1,19 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion libraryCompileSdkVersion
 
     defaultConfig {
         applicationId "ir.hamsaa.persiandatepicker"
-        minSdkVersion 14
-        targetSdkVersion 30
+        minSdkVersion libraryMinSdk
+        targetSdkVersion libraryTargetSdk
         versionCode 1
         versionName "1.0"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -20,4 +21,11 @@ android {
 
 dependencies {
     implementation project(":persiandatepicker")
+    implementation "androidx.appcompat:appcompat:$appCompat"
+    implementation "com.google.android.material:material:$material"
+    implementation "androidx.core:core-ktx:$coreKtx"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
