@@ -21,4 +21,5 @@ dependencies {
     implementation "com.google.android.material:material:$material"
     implementation "androidx.core:core-ktx:$coreKtx"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.github.samanzamani.persiandate:PersianDate:$persianDate"
 }

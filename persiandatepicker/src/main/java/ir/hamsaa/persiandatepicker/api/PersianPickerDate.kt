@@ -22,9 +22,18 @@ interface PersianPickerDate {
 
     fun getGregorianDay(): Int
 
-    fun getPersianWeekDay(): Int
+    fun getDayOfWeek(): Int
 
-    fun getGregorianWeekDay(): Int
+    fun getPersianMonthName(): String
+
+    fun getPersianDayOfWeekName(): String
+
+    /**
+     * @return String of Persian Date ex: دوشنبه ۱۳ خرداد ۱۳۷۰
+     */
+    fun getPersianLongDate(): String
 
     fun getGregorianDate(): Date
+
+    fun getTimestamp(): Long
 }
