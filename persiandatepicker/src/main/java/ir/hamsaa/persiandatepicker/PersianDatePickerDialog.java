@@ -83,9 +83,14 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    @Deprecated
     public PersianDatePickerDialog setInitDate(PersianCalendar initDate) {
         return setInitDate(initDate, false);
     }
+
+//    public PersianDatePickerDialog setInitDate(PersianPickerDate initDate) {
+//        return setInitDate(initDate, false);
+//    }
 
     public PersianDatePickerDialog setInitDate(PersianCalendar initDate, boolean force) {
         this.forceMode = force;
