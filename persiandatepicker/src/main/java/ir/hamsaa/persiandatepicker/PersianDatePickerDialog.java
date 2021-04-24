@@ -50,6 +50,10 @@ public class PersianDatePickerDialog {
     private String todayButtonString = "امروز";
     private boolean todayButtonVisibility = false;
     private int actionColor = Color.GRAY;
+    private int actionTextSize = 12;
+    private int negativeTextSize = 12;
+    private int todayTextSize = 12;
+    private int allButtonTextSize = 12;
     private int backgroundColor = Color.WHITE;
     private int titleColor = Color.parseColor("#111111");
     private boolean cancelable = true;
@@ -82,7 +86,7 @@ public class PersianDatePickerDialog {
     }
 
     public PersianDatePickerDialog setTypeFace(Typeface typeFace) {
-        this.typeFace = typeFace;
+        PersianDatePickerDialog.typeFace = typeFace;
         return this;
     }
 
@@ -157,6 +161,10 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setTodayTextSize(int sizeInt) {
+        this.todayTextSize = sizeInt;
+        return this;
+    }
 
     public PersianDatePickerDialog setNegativeButton(String negativeButton) {
         this.negativeButtonString = negativeButton;
@@ -168,13 +176,31 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setNegativeTextSize(int sizeInt) {
+        this.negativeTextSize = sizeInt;
+        return this;
+    }
+
     public PersianDatePickerDialog setActionTextColor(@ColorInt int colorInt) {
         this.actionColor = colorInt;
         return this;
     }
 
+
     public PersianDatePickerDialog setActionTextColorResource(@ColorRes int colorInt) {
         this.actionColor = ContextCompat.getColor(context, colorInt);
+        return this;
+    }
+
+    public PersianDatePickerDialog setActionTextSize(int sizeInt) {
+        this.actionTextSize = sizeInt;
+        return this;
+    }
+
+    public PersianDatePickerDialog setAllButtonsTextSize(int sizeInt) {
+        this.actionTextSize = sizeInt;
+        this.negativeTextSize = sizeInt;
+        this.todayTextSize = sizeInt;
         return this;
     }
 
@@ -267,6 +293,10 @@ public class PersianDatePickerDialog {
             todayButton.setTypeface(typeFace);
             datePickerView.setTypeFace(typeFace);
         }
+
+        positiveButton.setTextSize(actionTextSize);
+        negativeButton.setTextSize(negativeTextSize);
+        todayButton.setTextSize(todayTextSize);
 
         positiveButton.setTextColor(actionColor);
         negativeButton.setTextColor(actionColor);
@@ -383,5 +413,6 @@ public class PersianDatePickerDialog {
         }
 
     }
+
 
 }
