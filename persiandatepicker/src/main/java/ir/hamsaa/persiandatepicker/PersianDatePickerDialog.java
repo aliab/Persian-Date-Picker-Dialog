@@ -1,6 +1,5 @@
 package ir.hamsaa.persiandatepicker;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -8,19 +7,16 @@ import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
-
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -65,6 +61,7 @@ public class PersianDatePickerDialog {
         this.context = context;
     }
 
+    @Deprecated
     public PersianDatePickerDialog setListener(Listener listener) {
         this.listener = listener;
         return this;
