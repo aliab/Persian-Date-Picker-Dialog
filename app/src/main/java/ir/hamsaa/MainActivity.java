@@ -4,6 +4,7 @@ package ir.hamsaa;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,11 +17,14 @@ import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
 import ir.hamsaa.persiandatepicker.api.PersianPickerListener;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
+import ir.hamsaa.persiandatepicker.util.PersianCalendarUtils;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private PersianDatePickerDialog picker;
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +53,12 @@ public class MainActivity extends AppCompatActivity {
                 .setListener(new PersianPickerListener() {
                     @Override
                     public void onDateSelected(@NotNull PersianPickerDate persianPickerDate) {
+                        Log.d(TAG, "onDateSelected: " + persianPickerDate.getTimestamp());//675930448000
+                        Log.d(TAG, "onDateSelected: " + persianPickerDate.getGregorianDate());//Mon Jun 03 10:57:28 GMT+04:30 1991
+                        Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianLongDate());// دوشنبه  13  خرداد  1370
+                        Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianMonthName());//خرداد
+                        Log.d(TAG, "onDateSelected: " + PersianCalendarUtils.isPersianLeapYear(persianPickerDate.getPersianYear()));//true
                         Toast.makeText(MainActivity.this, persianPickerDate.getPersianYear() + "/" + persianPickerDate.getPersianMonth() + "/" + persianPickerDate.getPersianDay(), Toast.LENGTH_SHORT).show();
-
                     }
 
                     @Override
