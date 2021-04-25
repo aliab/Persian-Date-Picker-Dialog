@@ -1,31 +1,29 @@
 package ir.hamsaa.persiandatepicker;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
-
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.Date;
 
+import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
+import ir.hamsaa.persiandatepicker.api.PersianPickerListener;
+import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 import ir.hamsaa.persiandatepicker.util.PersianHelper;
 
@@ -44,14 +42,17 @@ public class PersianDatePickerDialog {
     private String positiveButtonString = "تایید";
     private String negativeButtonString = "انصراف";
     private Listener listener;
+    private PersianPickerListener persianPickerListener;
     private int maxYear = 0;
     private int minYear = 0;
-    private PersianCalendar initDate = new PersianCalendar();
-    private PersianCalendar pCalendar;
+    private PersianPickerDate initDate = new PersianDateImpl();
     public static Typeface typeFace;
     private String todayButtonString = "امروز";
     private boolean todayButtonVisibility = false;
     private int actionColor = Color.GRAY;
+    private int actionTextSize = 12;
+    private int negativeTextSize = 12;
+    private int todayTextSize = 12;
     private int backgroundColor = Color.WHITE;
     private int titleColor = Color.parseColor("#111111");
     private boolean cancelable = true;
@@ -61,12 +62,19 @@ public class PersianDatePickerDialog {
     private int titleType = 0;
     private boolean showInBottomSheet;
 
+
     public PersianDatePickerDialog(Context context) {
         this.context = context;
     }
 
+    @Deprecated
     public PersianDatePickerDialog setListener(Listener listener) {
         this.listener = listener;
+        return this;
+    }
+
+    public PersianDatePickerDialog setListener(PersianPickerListener listener) {
+        this.persianPickerListener = listener;
         return this;
     }
 
@@ -77,7 +85,7 @@ public class PersianDatePickerDialog {
     }
 
     public PersianDatePickerDialog setTypeFace(Typeface typeFace) {
-        this.typeFace = typeFace;
+        PersianDatePickerDialog.typeFace = typeFace;
         return this;
     }
 
@@ -86,13 +94,44 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setInitDate(Long timestamp) {
+        this.initDate.setDate(timestamp);
+        return this;
+    }
+
+    public PersianDatePickerDialog setInitDate(Date date) {
+        this.initDate.setDate(date);
+        return this;
+    }
+
+    public PersianDatePickerDialog setInitDate(int persianYear, int persianMonth, int persianDay) {
+        this.initDate.setDate(persianYear, persianMonth, persianDay);
+        return this;
+    }
+
+    public PersianDatePickerDialog setInitDate(PersianPickerDate initDate) {
+        return setInitDate(initDate, false);
+    }
+
+    public PersianDatePickerDialog setInitDate(PersianPickerDate initDate, boolean force) {
+        this.forceMode = force;
+        this.initDate.setDate(initDate.getTimestamp());
+        return this;
+    }
+
+    @Deprecated
     public PersianDatePickerDialog setInitDate(PersianCalendar initDate) {
         return setInitDate(initDate, false);
     }
 
+    @Deprecated
     public PersianDatePickerDialog setInitDate(PersianCalendar initDate, boolean force) {
         this.forceMode = force;
-        this.initDate = initDate;
+        this.initDate.setDate(
+                initDate.getPersianYear(),
+                initDate.getPersianMonth(),
+                initDate.getPersianDay()
+        );
         return this;
     }
 
@@ -121,6 +160,10 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setTodayTextSize(int sizeInt) {
+        this.todayTextSize = sizeInt;
+        return this;
+    }
 
     public PersianDatePickerDialog setNegativeButton(String negativeButton) {
         this.negativeButtonString = negativeButton;
@@ -132,13 +175,31 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setNegativeTextSize(int sizeInt) {
+        this.negativeTextSize = sizeInt;
+        return this;
+    }
+
     public PersianDatePickerDialog setActionTextColor(@ColorInt int colorInt) {
         this.actionColor = colorInt;
         return this;
     }
 
+
     public PersianDatePickerDialog setActionTextColorResource(@ColorRes int colorInt) {
         this.actionColor = ContextCompat.getColor(context, colorInt);
+        return this;
+    }
+
+    public PersianDatePickerDialog setActionTextSize(int sizeInt) {
+        this.actionTextSize = sizeInt;
+        return this;
+    }
+
+    public PersianDatePickerDialog setAllButtonsTextSize(int sizeInt) {
+        this.actionTextSize = sizeInt;
+        this.negativeTextSize = sizeInt;
+        this.todayTextSize = sizeInt;
         return this;
     }
 
@@ -179,10 +240,8 @@ public class PersianDatePickerDialog {
 
     public void show() {
 
-        pCalendar = new PersianCalendar();
-
         View v = View.inflate(context, R.layout.dialog_picker, null);
-        final PersianDatePicker datePicker = v.findViewById(R.id.datePicker);
+        final PersianDatePicker datePickerView = v.findViewById(R.id.datePicker);
         final TextView dateText = v.findViewById(R.id.dateText);
         final AppCompatButton positiveButton = v.findViewById(R.id.positive_button);
         final AppCompatButton negativeButton = v.findViewById(R.id.negative_button);
@@ -194,23 +253,23 @@ public class PersianDatePickerDialog {
 
 
         if (pickerBackgroundColor != 0) {
-            datePicker.setBackgroundColor(pickerBackgroundColor);
+            datePickerView.setBackgroundColor(pickerBackgroundColor);
         } else if (pickerBackgroundDrawable != 0) {
-            datePicker.setBackgroundDrawable(pickerBackgroundDrawable);
+            datePickerView.setBackgroundDrawable(pickerBackgroundDrawable);
         }
 
         if (maxYear > 0) {
-            datePicker.setMaxYear(maxYear);
+            datePickerView.setMaxYear(maxYear);
         } else if (maxYear == THIS_YEAR) {
-            maxYear = pCalendar.getPersianYear();
-            datePicker.setMaxYear(pCalendar.getPersianYear());
+            maxYear = new PersianDateImpl().getPersianYear();
+            datePickerView.setMaxYear(maxYear);
         }
 
         if (minYear > 0) {
-            datePicker.setMinYear(minYear);
+            datePickerView.setMinYear(minYear);
         } else if (minYear == THIS_YEAR) {
-            minYear = pCalendar.getPersianYear();
-            datePicker.setMinYear(pCalendar.getPersianYear());
+            minYear = new PersianDateImpl().getPersianYear();
+            datePickerView.setMinYear(minYear);
         }
 
         if (initDate != null) {
@@ -218,10 +277,10 @@ public class PersianDatePickerDialog {
             if (initYear > maxYear || initYear < minYear) {
                 Log.e("PERSIAN CALENDAR", "init year is more/less than minYear/maxYear");
                 if (forceMode) {
-                    datePicker.setDisplayPersianDate(initDate);
+                    datePickerView.setDisplayPersianDate(initDate);
                 }
             } else {
-                datePicker.setDisplayPersianDate(initDate);
+                datePickerView.setDisplayPersianDate(initDate);
             }
 
         }
@@ -231,8 +290,12 @@ public class PersianDatePickerDialog {
             positiveButton.setTypeface(typeFace);
             negativeButton.setTypeface(typeFace);
             todayButton.setTypeface(typeFace);
-            datePicker.setTypeFace(typeFace);
+            datePickerView.setTypeFace(typeFace);
         }
+
+        positiveButton.setTextSize(actionTextSize);
+        negativeButton.setTextSize(negativeTextSize);
+        todayButton.setTextSize(todayTextSize);
 
         positiveButton.setTextColor(actionColor);
         negativeButton.setTextColor(actionColor);
@@ -246,24 +309,21 @@ public class PersianDatePickerDialog {
             todayButton.setVisibility(View.VISIBLE);
         }
 
-        pCalendar = datePicker.getDisplayPersianDate();
-        updateView(dateText);
+        updateView(dateText, datePickerView.getPersianDate());
 
-        datePicker.setOnDateChangedListener(new PersianDatePicker.OnDateChangedListener() {
+        datePickerView.setOnDateChangedListener(new PersianDatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(int newYear, int newMonth, int newDay) {
-                pCalendar.setPersianDate(newYear, newMonth, newDay);
-                updateView(dateText);
+                updateView(dateText, datePickerView.getPersianDate());
             }
         });
 
 
         final AppCompatDialog dialog;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && showInBottomSheet) {
+        if (showInBottomSheet) {
             dialog = new BottomSheetDialog(context);
             dialog.setContentView(v);
             dialog.setCancelable(cancelable);
-            dialog.create();
         } else {
             dialog = new AlertDialog.Builder(context)
                     .setView(v)
@@ -284,8 +344,14 @@ public class PersianDatePickerDialog {
         positiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // for backward compatibility, still support this
                 if (listener != null) {
-                    listener.onDateSelected(datePicker.getDisplayPersianDate());
+                    listener.onDateSelected(datePickerView.getDisplayPersianDate());
+                }
+
+                if (persianPickerListener != null) {
+                    persianPickerListener.onDateSelected(datePickerView.getPersianDate());
                 }
                 dialog.dismiss();
             }
@@ -295,21 +361,20 @@ public class PersianDatePickerDialog {
             @Override
             public void onClick(View view) {
 
-                datePicker.setDisplayDate(new Date());
+                datePickerView.setDisplayDate(new Date());
 
                 if (maxYear > 0) {
-                    datePicker.setMaxYear(maxYear);
+                    datePickerView.setMaxYear(maxYear);
                 }
 
                 if (minYear > 0) {
-                    datePicker.setMinYear(minYear);
+                    datePickerView.setMinYear(minYear);
                 }
 
-                pCalendar = datePicker.getDisplayPersianDate();
                 dateText.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        updateView(dateText);
+                        updateView(dateText, datePickerView.getPersianDate());
                     }
                 }, 100);
             }
@@ -318,7 +383,7 @@ public class PersianDatePickerDialog {
         dialog.show();
     }
 
-    private void updateView(TextView dateText) {
+    private void updateView(TextView dateText, PersianPickerDate persianDate) {
         String date;
         switch (titleType) {
             case NO_TITLE:
@@ -327,17 +392,17 @@ public class PersianDatePickerDialog {
                 dateText.setLayoutParams(layoutParams);
                 break;
             case DAY_MONTH_YEAR:
-                date = pCalendar.getPersianDay() + " " +
-                        pCalendar.getPersianMonthName() + " " +
-                        pCalendar.getPersianYear();
+                date = persianDate.getPersianDay() + " " +
+                        persianDate.getPersianMonthName() + " " +
+                        persianDate.getPersianYear();
 
                 dateText.setText(PersianHelper.toPersianNumber(date));
                 break;
             case WEEKDAY_DAY_MONTH_YEAR:
-                date = pCalendar.getPersianWeekDayName() + " " +
-                        pCalendar.getPersianDay() + " " +
-                        pCalendar.getPersianMonthName() + " " +
-                        pCalendar.getPersianYear();
+                date = persianDate.getPersianDayOfWeekName() + " " +
+                        persianDate.getPersianDay() + " " +
+                        persianDate.getPersianMonthName() + " " +
+                        persianDate.getPersianYear();
 
                 dateText.setText(PersianHelper.toPersianNumber(date));
                 break;
@@ -347,5 +412,6 @@ public class PersianDatePickerDialog {
         }
 
     }
+
 
 }

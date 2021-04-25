@@ -19,6 +19,8 @@ import androidx.annotation.DrawableRes;
 
 import java.util.Date;
 
+import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
+import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 import ir.hamsaa.persiandatepicker.util.PersianCalendarConstants;
 import ir.hamsaa.persiandatepicker.util.PersianCalendarUtils;
@@ -28,21 +30,21 @@ import ir.hamsaa.persiandatepicker.view.PersianNumberPicker;
 
 class PersianDatePicker extends LinearLayout {
 
-    private PersianCalendar pCalendar;
+    private PersianPickerDate persianDate;
     private int selectedMonth;
     private int selectedYear;
     private int selectedDay;
     private boolean displayMonthNames;
     private OnDateChangedListener mListener;
-    private PersianNumberPicker yearNumberPicker;
-    private PersianNumberPicker monthNumberPicker;
-    private PersianNumberPicker dayNumberPicker;
+    private final PersianNumberPicker yearNumberPicker;
+    private final PersianNumberPicker monthNumberPicker;
+    private final PersianNumberPicker dayNumberPicker;
 
     private int minYear;
     private int maxYear;
 
     private boolean displayDescription;
-    private TextView descriptionTextView;
+    private final TextView descriptionTextView;
     private Typeface typeFace;
     private int dividerColor;
     private int yearRange;
@@ -53,38 +55,6 @@ class PersianDatePicker extends LinearLayout {
 
     public PersianDatePicker(Context context, AttributeSet attrs) {
         this(context, attrs, -1);
-    }
-
-    private void updateVariablesFromXml(Context context, AttributeSet attrs) {
-
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PersianDatePicker, 0, 0);
-        yearRange = a.getInteger(R.styleable.PersianDatePicker_yearRange, 10);
-        /*
-         * Initializing yearNumberPicker min and max values If minYear and
-         * maxYear attributes are not set, use (current year - 10) as min and
-         * (current year + 10) as max.
-         */
-        minYear = a.getInt(R.styleable.PersianDatePicker_minYear, pCalendar.getPersianYear() - yearRange);
-        maxYear = a.getInt(R.styleable.PersianDatePicker_maxYear, pCalendar.getPersianYear() + yearRange);
-        displayMonthNames = a.getBoolean(R.styleable.PersianDatePicker_displayMonthNames, false);
-        /*
-         * displayDescription
-         */
-        displayDescription = a.getBoolean(R.styleable.PersianDatePicker_displayDescription, false);
-        selectedDay = a.getInteger(R.styleable.PersianDatePicker_selectedDay, pCalendar.getPersianDay());
-        selectedYear = a.getInt(R.styleable.PersianDatePicker_selectedYear, pCalendar.getPersianYear());
-        selectedMonth = a.getInteger(R.styleable.PersianDatePicker_selectedMonth, pCalendar.getPersianMonth());
-
-        // if you pass selected year before min year, then we need to push min year to before that
-        if (minYear > selectedYear) {
-            minYear = selectedYear - yearRange;
-        }
-
-        if (maxYear < selectedYear) {
-            maxYear = selectedYear + yearRange;
-        }
-
-        a.recycle();
     }
 
     public PersianDatePicker(Context context, AttributeSet attrs, int defStyle) {
@@ -122,13 +92,45 @@ class PersianDatePicker extends LinearLayout {
         });
 
         // init calendar
-        pCalendar = new PersianCalendar();
+        persianDate = new PersianDateImpl();
 
         // update variables from xml
         updateVariablesFromXml(context, attrs);
 
         // update view
         updateViewData();
+    }
+
+    private void updateVariablesFromXml(Context context, AttributeSet attrs) {
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PersianDatePicker, 0, 0);
+        yearRange = a.getInteger(R.styleable.PersianDatePicker_yearRange, 10);
+        /*
+         * Initializing yearNumberPicker min and max values If minYear and
+         * maxYear attributes are not set, use (current year - 10) as min and
+         * (current year + 10) as max.
+         */
+        minYear = a.getInt(R.styleable.PersianDatePicker_minYear, persianDate.getPersianYear() - yearRange);
+        maxYear = a.getInt(R.styleable.PersianDatePicker_maxYear, persianDate.getPersianYear() + yearRange);
+        displayMonthNames = a.getBoolean(R.styleable.PersianDatePicker_displayMonthNames, false);
+        /*
+         * displayDescription
+         */
+        displayDescription = a.getBoolean(R.styleable.PersianDatePicker_displayDescription, false);
+        selectedDay = a.getInteger(R.styleable.PersianDatePicker_selectedDay, persianDate.getPersianDay());
+        selectedYear = a.getInt(R.styleable.PersianDatePicker_selectedYear, persianDate.getPersianYear());
+        selectedMonth = a.getInteger(R.styleable.PersianDatePicker_selectedMonth, persianDate.getPersianMonth());
+
+        // if you pass selected year before min year, then we need to push min year to before that
+        if (minYear > selectedYear) {
+            minYear = selectedYear - yearRange;
+        }
+
+        if (maxYear < selectedYear) {
+            maxYear = selectedYear + yearRange;
+        }
+
+        a.recycle();
     }
 
     public void setBackgroundColor(@ColorInt int color) {
@@ -253,7 +255,7 @@ class PersianDatePicker extends LinearLayout {
 
         if (displayDescription) {
             descriptionTextView.setVisibility(View.VISIBLE);
-            descriptionTextView.setText(getDisplayPersianDate().getPersianLongDate());
+            descriptionTextView.setText(persianDate.getPersianLongDate());
         }
     }
 
@@ -292,18 +294,15 @@ class PersianDatePicker extends LinearLayout {
                 }
             }
 
-            PersianCalendar displayPersianDate = new PersianCalendar();
-            displayPersianDate.setPersianDate(
+            persianDate.setDate(
                     yearNumberPicker.getValue(),
                     monthNumberPicker.getValue(),
                     dayNumberPicker.getValue()
             );
 
-            pCalendar = displayPersianDate;
-
             // Set description
             if (displayDescription) {
-                descriptionTextView.setText(getDisplayPersianDate().getPersianLongDate());
+                descriptionTextView.setText(persianDate.getPersianLongDate());
             }
 
             if (mListener != null) {
@@ -339,25 +338,54 @@ class PersianDatePicker extends LinearLayout {
     }
 
     public Date getDisplayDate() {
-        return pCalendar.getTime();
+        return persianDate.getGregorianDate();
     }
 
     public void setDisplayDate(Date displayDate) {
-        PersianCalendar persianCalendar = new PersianCalendar(displayDate.getTime());
-        setDisplayPersianDate(persianCalendar);
+        persianDate.setDate(displayDate);
+        setDisplayPersianDate(persianDate);
     }
 
+    /**
+     * @return {@link PersianCalendar} that indicate current calendar state
+     * @Deprecated Use getPersianDate() instead
+     */
+    @Deprecated
     public PersianCalendar getDisplayPersianDate() {
-        return pCalendar;
+        PersianCalendar persianCalendar = new PersianCalendar();
+        persianCalendar.setPersianDate(
+                persianDate.getPersianYear(),
+                persianDate.getPersianMonth(),
+                persianDate.getPersianDay()
+        );
+        return persianCalendar;
     }
 
+    public PersianPickerDate getPersianDate() {
+        return persianDate;
+    }
+
+    /**
+     * @Deprecated Use setDisplayPersianDate(PersianPickerDate displayPersianDate) instead
+     */
+    @Deprecated
     public void setDisplayPersianDate(PersianCalendar displayPersianDate) {
+        PersianPickerDate persianPickerDate = new PersianDateImpl();
+        persianPickerDate.setDate(
+                displayPersianDate.getPersianYear(),
+                displayPersianDate.getPersianMonth(),
+                displayPersianDate.getPersianDay()
+        );
+        setDisplayPersianDate(persianPickerDate);
+    }
 
-        pCalendar = displayPersianDate;
+    public void setDisplayPersianDate(PersianPickerDate displayPersianDate) {
 
-        final int year = displayPersianDate.getPersianYear();
-        final int month = displayPersianDate.getPersianMonth();
-        final int day = displayPersianDate.getPersianDay();
+        persianDate.setDate(displayPersianDate.getTimestamp());
+
+        final int year = persianDate.getPersianYear();
+        final int month = persianDate.getPersianMonth();
+        final int day = persianDate.getPersianDay();
 
         selectedYear = year;
         selectedMonth = month;

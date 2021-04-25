@@ -112,6 +112,7 @@ import java.util.TimeZone;
  * @author Morteza  contact: <a href="mailto:Mortezaadi@gmail.com">Mortezaadi@gmail.com</a>
  * @version 1.1
  */
+@Deprecated
 public class PersianCalendar extends GregorianCalendar {
 
 	private static final long serialVersionUID = 5541422440580682494L;
