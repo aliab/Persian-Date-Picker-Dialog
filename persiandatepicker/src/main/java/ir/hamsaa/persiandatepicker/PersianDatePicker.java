@@ -57,38 +57,6 @@ class PersianDatePicker extends LinearLayout {
         this(context, attrs, -1);
     }
 
-    private void updateVariablesFromXml(Context context, AttributeSet attrs) {
-
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PersianDatePicker, 0, 0);
-        yearRange = a.getInteger(R.styleable.PersianDatePicker_yearRange, 10);
-        /*
-         * Initializing yearNumberPicker min and max values If minYear and
-         * maxYear attributes are not set, use (current year - 10) as min and
-         * (current year + 10) as max.
-         */
-        minYear = a.getInt(R.styleable.PersianDatePicker_minYear, persianDate.getPersianYear() - yearRange);
-        maxYear = a.getInt(R.styleable.PersianDatePicker_maxYear, persianDate.getPersianYear() + yearRange);
-        displayMonthNames = a.getBoolean(R.styleable.PersianDatePicker_displayMonthNames, false);
-        /*
-         * displayDescription
-         */
-        displayDescription = a.getBoolean(R.styleable.PersianDatePicker_displayDescription, false);
-        selectedDay = a.getInteger(R.styleable.PersianDatePicker_selectedDay, persianDate.getPersianDay());
-        selectedYear = a.getInt(R.styleable.PersianDatePicker_selectedYear, persianDate.getPersianYear());
-        selectedMonth = a.getInteger(R.styleable.PersianDatePicker_selectedMonth, persianDate.getPersianMonth());
-
-        // if you pass selected year before min year, then we need to push min year to before that
-        if (minYear > selectedYear) {
-            minYear = selectedYear - yearRange;
-        }
-
-        if (maxYear < selectedYear) {
-            maxYear = selectedYear + yearRange;
-        }
-
-        a.recycle();
-    }
-
     public PersianDatePicker(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
@@ -131,6 +99,38 @@ class PersianDatePicker extends LinearLayout {
 
         // update view
         updateViewData();
+    }
+
+    private void updateVariablesFromXml(Context context, AttributeSet attrs) {
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PersianDatePicker, 0, 0);
+        yearRange = a.getInteger(R.styleable.PersianDatePicker_yearRange, 10);
+        /*
+         * Initializing yearNumberPicker min and max values If minYear and
+         * maxYear attributes are not set, use (current year - 10) as min and
+         * (current year + 10) as max.
+         */
+        minYear = a.getInt(R.styleable.PersianDatePicker_minYear, persianDate.getPersianYear() - yearRange);
+        maxYear = a.getInt(R.styleable.PersianDatePicker_maxYear, persianDate.getPersianYear() + yearRange);
+        displayMonthNames = a.getBoolean(R.styleable.PersianDatePicker_displayMonthNames, false);
+        /*
+         * displayDescription
+         */
+        displayDescription = a.getBoolean(R.styleable.PersianDatePicker_displayDescription, false);
+        selectedDay = a.getInteger(R.styleable.PersianDatePicker_selectedDay, persianDate.getPersianDay());
+        selectedYear = a.getInt(R.styleable.PersianDatePicker_selectedYear, persianDate.getPersianYear());
+        selectedMonth = a.getInteger(R.styleable.PersianDatePicker_selectedMonth, persianDate.getPersianMonth());
+
+        // if you pass selected year before min year, then we need to push min year to before that
+        if (minYear > selectedYear) {
+            minYear = selectedYear - yearRange;
+        }
+
+        if (maxYear < selectedYear) {
+            maxYear = selectedYear + yearRange;
+        }
+
+        a.recycle();
     }
 
     public void setBackgroundColor(@ColorInt int color) {
