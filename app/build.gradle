@@ -8,8 +8,8 @@ android {
         applicationId "ir.hamsaa.persiandatepicker"
         minSdkVersion libraryMinSdk
         targetSdkVersion libraryTargetSdk
-        versionCode 1
-        versionName "1.0"
+        versionCode 9
+        versionName "1.6.0"
     }
     buildTypes {
         release {
