@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.jetbrains.annotations.NotNull;
 
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 .setShowInBottomSheet(true)
                 .setListener(new PersianPickerListener() {
                     @Override
-                    public void onDateSelected(@NotNull PersianPickerDate persianPickerDate) {
+                    public void onDateSelected(PersianPickerDate persianPickerDate) {
                         Log.d(TAG, "onDateSelected: " + persianPickerDate.getTimestamp());//675930448000
                         Log.d(TAG, "onDateSelected: " + persianPickerDate.getGregorianDate());//Mon Jun 03 10:57:28 GMT+04:30 1991
                         Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianLongDate());// دوشنبه  13  خرداد  1370

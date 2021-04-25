@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion libraryCompileSdkVersion
@@ -7,10 +6,6 @@ android {
     defaultConfig {
         minSdkVersion libraryMinSdk
         targetSdkVersion libraryTargetSdk
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     compileOptions {
@@ -29,7 +24,5 @@ android {
 dependencies {
     implementation "androidx.appcompat:appcompat:$appCompat"
     implementation "com.google.android.material:material:$material"
-    implementation "androidx.core:core-ktx:$coreKtx"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.github.samanzamani.persiandate:PersianDate:$persianDate"
 }
