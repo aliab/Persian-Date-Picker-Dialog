@@ -2,7 +2,7 @@ package ir.hamsaa.persiandatepicker.api
 
 import java.util.*
 
-interface PersianPickerDate {
+public interface PersianPickerDate {
 
     fun setDate(timestamp: Long)
 

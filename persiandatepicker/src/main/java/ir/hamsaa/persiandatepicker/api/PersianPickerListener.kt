@@ -1,6 +1,6 @@
 package ir.hamsaa.persiandatepicker.api
 
-interface PersianPickerListener {
+public interface PersianPickerListener {
 
     fun onDateSelected(persianPickerDate: PersianPickerDate)
 
