@@ -26,7 +26,7 @@ allprojects {
 Step 2. Add the dependency
 ```groovy
 dependencies {
-    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.5.2'
+    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.6.0'
 }
 ```
 
@@ -41,23 +41,20 @@ Then in your Java Code, you use it like below.
                 .setTodayButtonVisible(true)
                 .setMinYear(1300)
                 .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
-                .setInitDate(initDate)
+                .setInitDate(1370, 3, 13)
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
                 .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
                 .setShowInBottomSheet(true)
-                .setListener(new Listener() {
+                .setListener(new PersianPickerListener() {
                     @Override
-                    public void onDateSelected(PersianCalendar persianCalendar) {
-                    Log.d(TAG, "onDateSelected: "+persianCalendar.getGregorianChange());//Fri Oct 15 03:25:44 GMT+04:30 1582
-                        Log.d(TAG, "onDateSelected: "+persianCalendar.getTimeInMillis());//1583253636577
-                        Log.d(TAG, "onDateSelected: "+persianCalendar.getTime());//Tue Mar 03 20:10:36 GMT+03:30 2020
-                        Log.d(TAG, "onDateSelected: "+persianCalendar.getDelimiter());//  /
-                        Log.d(TAG, "onDateSelected: "+persianCalendar.getPersianLongDate());// سه‌شنبه  13  اسفند  1398
-                        Log.d(TAG, "onDateSelected: "+persianCalendar.getPersianLongDateAndTime()); //سه‌شنبه  13  اسفند  1398 ساعت 20:10:36
-                        Log.d(TAG, "onDateSelected: "+persianCalendar.getPersianMonthName()); //اسفند
-                        Log.d(TAG, "onDateSelected: "+persianCalendar.isPersianLeapYear());//false
-                        Toast.makeText(context, persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
+                    public void onDateSelected(@NotNull PersianPickerDate persianPickerDate) {
+                        Log.d(TAG, "onDateSelected: " + persianPickerDate.getTimestamp());//675930448000
+                        Log.d(TAG, "onDateSelected: " + persianPickerDate.getGregorianDate());//Mon Jun 03 10:57:28 GMT+04:30 1991
+                        Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianLongDate());// دوشنبه  13  خرداد  1370
+                        Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianMonthName());//خرداد
+                        Log.d(TAG, "onDateSelected: " + PersianCalendarUtils.isPersianLeapYear(persianPickerDate.getPersianYear()));//true
+                        Toast.makeText(context, persianPickerDate.getPersianYear() + "/" + persianPickerDate.getPersianMonth() + "/" + persianPickerDate.getPersianDay(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -68,18 +65,6 @@ Then in your Java Code, you use it like below.
 
         picker.show();
 ```
-
-If you need to set an initial date, just simply set it like below.
-```java
-
- PersianCalendar initDate = new PersianCalendar();
- initDate.setPersianDate(1370, 3, 13);
-
- persianDatePickerDialog.setInitDate(initDate)
-```
-
-## Support for BottomSheet
-For the OS version after lollipop, if you set `setShowInBottomSheet(true)` it will show date picker in bottomsheet dialog.
 
 ## Public Methods
 
@@ -104,6 +89,8 @@ For the OS version after lollipop, if you set `setShowInBottomSheet(true)` it wi
 |setPickerBackgroundColor(@ColorInt int)| set date pickers background color|
 |setTitleType(NO_TITLE/DAY_MONTH_YEAR/WEEKDAY_DAY_MONTH_YEAR)|It will handle title show scenarios|
 |setPickerBackgroundDrawable(@DrawableRes int)| set date pickers background drawable from res/drawable folder|
+|setAllButtonsTextSize(int)| set Action button text size|
+|setShowInBottomSheet(bool)|switch between dialog and bottomsheet|
 |setListener(Listener)| set dialog callback listener|
 
 ## STYLING
@@ -138,7 +125,7 @@ in your base application Theme, add
    
 The MIT License (MIT)
 
-Copyright (c) 2018 Ali Abdolahi
+Copyright (c) 2021 Ali Abdolahi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
