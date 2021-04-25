@@ -346,6 +346,10 @@ class PersianDatePicker extends LinearLayout {
         setDisplayPersianDate(persianDate);
     }
 
+    /**
+     * @return {@link PersianCalendar} that indicate current calendar state
+     * @Deprecated Use getPersianDate() instead
+     */
     @Deprecated
     public PersianCalendar getDisplayPersianDate() {
         PersianCalendar persianCalendar = new PersianCalendar();
@@ -361,6 +365,9 @@ class PersianDatePicker extends LinearLayout {
         return persianDate;
     }
 
+    /**
+     * @Deprecated Use setDisplayPersianDate(PersianPickerDate displayPersianDate) instead
+     */
     @Deprecated
     public void setDisplayPersianDate(PersianCalendar displayPersianDate) {
         PersianPickerDate persianPickerDate = new PersianDateImpl();
