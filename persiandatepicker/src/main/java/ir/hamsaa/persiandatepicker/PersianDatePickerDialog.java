@@ -53,7 +53,6 @@ public class PersianDatePickerDialog {
     private int actionTextSize = 12;
     private int negativeTextSize = 12;
     private int todayTextSize = 12;
-    private int allButtonTextSize = 12;
     private int backgroundColor = Color.WHITE;
     private int titleColor = Color.parseColor("#111111");
     private boolean cancelable = true;

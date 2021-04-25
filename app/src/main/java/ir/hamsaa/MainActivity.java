@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 .setTodayButton("امروز")
                 .setTodayButtonVisible(true)
                 .setMinYear(1300)
-                .setAllButtonsTextSize(24)
+                .setAllButtonsTextSize(12)
                 .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
                 .setInitDate(1370, 3, 13)
                 .setActionTextColor(Color.GRAY)
