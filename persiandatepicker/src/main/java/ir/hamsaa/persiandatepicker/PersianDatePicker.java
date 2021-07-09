@@ -42,6 +42,8 @@ class PersianDatePicker extends LinearLayout {
 
     private int minYear;
     private int maxYear;
+    private int maxMonth;
+    private int maxDay;
 
     private boolean displayDescription;
     private final TextView descriptionTextView;
@@ -150,6 +152,16 @@ class PersianDatePicker extends LinearLayout {
         updateViewData();
     }
 
+    public void setMaxMonth(int maxMonth) {
+        this.maxMonth = maxMonth;
+        updateViewData();
+    }
+
+    public void setMaxDay(int maxDay) {
+        this.maxDay = maxDay;
+        updateViewData();
+    }
+
     public void setMinYear(int minYear) {
         this.minYear = minYear;
         updateViewData();
@@ -220,7 +232,7 @@ class PersianDatePicker extends LinearLayout {
          */
 
         monthNumberPicker.setMinValue(1);
-        monthNumberPicker.setMaxValue(12);
+        monthNumberPicker.setMaxValue(maxMonth > 0 ? maxMonth : 12);
         if (displayMonthNames) {
             monthNumberPicker.setDisplayedValues(PersianCalendarConstants.persianMonthNames);
         }
@@ -235,7 +247,7 @@ class PersianDatePicker extends LinearLayout {
          * initializing dayNumberPicker
          */
         dayNumberPicker.setMinValue(1);
-        dayNumberPicker.setMaxValue(31);
+        setDayNumberPickerMaxValue(31);
         if (selectedDay > 31 || selectedDay < 1) {
             throw new IllegalArgumentException(String.format("Selected day (%d) must be between 1 and 31", selectedDay));
         }
@@ -271,26 +283,26 @@ class PersianDatePicker extends LinearLayout {
 
             if (month < 7) {
                 dayNumberPicker.setMinValue(1);
-                dayNumberPicker.setMaxValue(31);
+                setDayNumberPickerMaxValue(31);
             } else if (month < 12) {
                 if (day == 31) {
                     dayNumberPicker.setValue(30);
                 }
                 dayNumberPicker.setMinValue(1);
-                dayNumberPicker.setMaxValue(30);
+                setDayNumberPickerMaxValue(30);
             } else if (month == 12) {
                 if (isLeapYear) {
                     if (day == 31) {
                         dayNumberPicker.setValue(30);
                     }
                     dayNumberPicker.setMinValue(1);
-                    dayNumberPicker.setMaxValue(30);
+                    setDayNumberPickerMaxValue(30);
                 } else {
                     if (day > 29) {
                         dayNumberPicker.setValue(29);
                     }
                     dayNumberPicker.setMinValue(1);
-                    dayNumberPicker.setMaxValue(29);
+                    setDayNumberPickerMaxValue(29);
                 }
             }
 
@@ -313,6 +325,18 @@ class PersianDatePicker extends LinearLayout {
         }
 
     };
+
+    public void setDayNumberPickerMaxValue(int value) {
+        if (monthNumberPicker.getValue() == maxMonth) {
+            if (maxDay > 0) {
+                dayNumberPicker.setMaxValue(maxDay);
+            } else {
+                dayNumberPicker.setMaxValue(value);
+            }
+        } else {
+            dayNumberPicker.setMaxValue(value);
+        }
+    }
 
     public void setOnDateChangedListener(OnDateChangedListener onDateChangedListener) {
         mListener = onDateChangedListener;

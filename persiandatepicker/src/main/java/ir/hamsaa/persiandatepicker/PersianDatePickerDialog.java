@@ -34,6 +34,8 @@ import ir.hamsaa.persiandatepicker.util.PersianHelper;
 public class PersianDatePickerDialog {
 
     public static final int THIS_YEAR = -1;
+    public static final int THIS_MONTH = -2;
+    public static final int THIS_DAY = -3;
     public static final int NO_TITLE = 0;
     public static final int DAY_MONTH_YEAR = 1;
     public static final int WEEKDAY_DAY_MONTH_YEAR = 2;
@@ -44,6 +46,8 @@ public class PersianDatePickerDialog {
     private Listener listener;
     private PersianPickerListener persianPickerListener;
     private int maxYear = 0;
+    private int maxMonth = 0;
+    private int maxDay = 0;
     private int minYear = 0;
     private PersianPickerDate initDate = new PersianDateImpl();
     public static Typeface typeFace;
@@ -81,6 +85,22 @@ public class PersianDatePickerDialog {
 
     public PersianDatePickerDialog setMaxYear(int maxYear) {
         this.maxYear = maxYear;
+        return this;
+    }
+
+    public PersianDatePickerDialog setMaxMonth(int maxMonth) {
+        if (maxMonth > 12) {
+            throw new RuntimeException("max month is not valid");
+        }
+        this.maxMonth = maxMonth;
+        return this;
+    }
+
+    public PersianDatePickerDialog setMaxDay(int maxDay) {
+        if (maxDay > 31) {
+            throw new RuntimeException("max day is not valid");
+        }
+        this.maxDay = maxDay;
         return this;
     }
 
@@ -263,6 +283,20 @@ public class PersianDatePickerDialog {
         } else if (maxYear == THIS_YEAR) {
             maxYear = new PersianDateImpl().getPersianYear();
             datePickerView.setMaxYear(maxYear);
+        }
+
+        if (maxMonth > 0) {
+            datePickerView.setMaxMonth(maxMonth);
+        } else if (maxMonth == THIS_MONTH) {
+            maxMonth = new PersianDateImpl().getPersianMonth();
+            datePickerView.setMaxMonth(maxMonth);
+        }
+
+        if (maxDay > 0) {
+            datePickerView.setMaxDay(maxDay);
+        } else if (maxDay == THIS_DAY) {
+            maxDay = new PersianDateImpl().getPersianDay();
+            datePickerView.setMaxDay(maxDay);
         }
 
         if (minYear > 0) {
