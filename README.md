@@ -41,6 +41,8 @@ Then in your Java Code, you use it like below.
                 .setTodayButtonVisible(true)
                 .setMinYear(1300)
                 .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
+                .setMaxMonth(PersianDatePickerDialog.THIS_MONTH)
+                .setMaxDay(PersianDatePickerDialog.THIS_DAY)
                 .setInitDate(1370, 3, 13)
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
@@ -71,6 +73,8 @@ Then in your Java Code, you use it like below.
 | Name | Description |
 |:----:|:----:|
 |setMaxYear(int)| set maximum year can be selected|
+|setMaxMonth(int)| set maximum month can be selected|
+|setMaxDay(int)| set maximum day can be selected in the last month|
 |setMinYear(int)| set minimum year can be selected|
 |setTypeFace(TypeFace)| set dialog typeface|
 |setInitDate(PersianCalendar)| set date that dialog will launch on that|
