@@ -307,9 +307,9 @@ class PersianDatePicker extends LinearLayout {
             }
 
             persianDate.setDate(
-                    yearNumberPicker.getValue(),
-                    monthNumberPicker.getValue(),
-                    dayNumberPicker.getValue()
+                    year,
+                    month,
+                    day
             );
 
             // Set description
@@ -318,8 +318,7 @@ class PersianDatePicker extends LinearLayout {
             }
 
             if (mListener != null) {
-                mListener.onDateChanged(yearNumberPicker.getValue(), monthNumberPicker.getValue(),
-                        dayNumberPicker.getValue());
+                mListener.onDateChanged(year, month, day);
             }
 
         }
