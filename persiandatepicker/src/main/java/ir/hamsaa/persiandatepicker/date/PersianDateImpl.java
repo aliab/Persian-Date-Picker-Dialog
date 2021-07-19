@@ -25,9 +25,13 @@ public class PersianDateImpl implements PersianPickerDate {
 
     @Override
     public void setDate(int persianYear, int persianMonth, int persianDay) {
-        persianDate.setShYear(persianYear);
-        persianDate.setShMonth(persianMonth);
-        persianDate.setShDay(persianDay);
+        try{
+            persianDate.setShYear(persianYear);
+            persianDate.setShMonth(persianMonth);
+            persianDate.setShDay(persianDay);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

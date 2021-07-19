@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
                 .setMinYear(1300)
                 .setAllButtonsTextSize(12)
                 .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
-                .setMaxMonth(PersianDatePickerDialog.THIS_MONTH)
-                .setMaxDay(PersianDatePickerDialog.THIS_DAY)
                 .setInitDate(1370, 3, 13)
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
