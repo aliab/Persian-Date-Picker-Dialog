@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">PersianDatePicker</string>
+
+    <string name="farvardin">farvardin</string>
+    <string name="ordibehesht">ordibehesht</string>
+    <string name="khordad">khordad</string>
+    <string name="tir">tir</string>
+    <string name="mordad">mordad</string>
+    <string name="shahrivar">shahrivar</string>
+    <string name="mehr">mehr</string>
+    <string name="aban">aban</string>
+    <string name="azar">azar</string>
+    <string name="dey">dey</string>
+    <string name="bahman">bahman</string>
+    <string name="esfand">esfand</string>
+
+    <string name="shanbeh">shanbeh</string>
+    <string name="yekshanbeh">yekshanbeh</string>
+    <string name="doshanbeh">doshanbeh</string>
+    <string name="sehshanbeh">sehshanbeh</string>
+    <string name="chaharshanbeh">chaharshanbeh</string>
+    <string name="panjshanbeh">panjshanbeh</string>
+    <string name="jome">jome</string>
+
 </resources>

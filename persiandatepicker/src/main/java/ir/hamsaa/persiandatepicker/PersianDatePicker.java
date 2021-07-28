@@ -17,7 +17,10 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
 import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
@@ -50,6 +53,8 @@ class PersianDatePicker extends LinearLayout {
     private Typeface typeFace;
     private int dividerColor;
     private int yearRange;
+
+    public List<String> monthNamesFromStrings = new ArrayList();
 
     public PersianDatePicker(Context context) {
         this(context, null, -1);
@@ -99,6 +104,9 @@ class PersianDatePicker extends LinearLayout {
         // update variables from xml
         updateVariablesFromXml(context, attrs);
 
+        //Update constant from string resources
+        updateConstantsFromStrings();
+
         // update view
         updateViewData();
     }
@@ -133,6 +141,22 @@ class PersianDatePicker extends LinearLayout {
         }
 
         a.recycle();
+    }
+
+    void updateConstantsFromStrings(){
+        monthNamesFromStrings.add(getContext().getString(R.string.farvardin));
+        monthNamesFromStrings.add(getContext().getString(R.string.ordibehesht));
+        monthNamesFromStrings.add(getContext().getString(R.string.khordad));
+        monthNamesFromStrings.add(getContext().getString(R.string.tir));
+        monthNamesFromStrings.add(getContext().getString(R.string.mordad));
+        monthNamesFromStrings.add(getContext().getString(R.string.shahrivar));
+        monthNamesFromStrings.add(getContext().getString(R.string.mehr));
+        monthNamesFromStrings.add(getContext().getString(R.string.aban));
+        monthNamesFromStrings.add(getContext().getString(R.string.azar));
+        monthNamesFromStrings.add(getContext().getString(R.string.dey));
+        monthNamesFromStrings.add(getContext().getString(R.string.bahman));
+        monthNamesFromStrings.add(getContext().getString(R.string.esfand));
+
     }
 
     public void setBackgroundColor(@ColorInt int color) {
@@ -234,7 +258,7 @@ class PersianDatePicker extends LinearLayout {
         monthNumberPicker.setMinValue(1);
         monthNumberPicker.setMaxValue(maxMonth > 0 ? maxMonth : 12);
         if (displayMonthNames) {
-            monthNumberPicker.setDisplayedValues(PersianCalendarConstants.persianMonthNames);
+            monthNumberPicker.setDisplayedValues(monthNamesFromStrings.toArray(new String[0]));
         }
 
         if (selectedMonth < 1 || selectedMonth > 12) {
