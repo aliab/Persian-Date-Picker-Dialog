@@ -167,6 +167,16 @@ class PersianDatePicker extends LinearLayout {
         updateViewData();
     }
 
+    public void setDayVisibility(boolean visibility) {
+        if (visibility) {
+            dayNumberPicker.setVisibility(View.VISIBLE);
+        }else {
+            dayNumberPicker.setVisibility(View.GONE);
+        }
+
+        invalidate();
+    }
+
     public void setTypeFace(Typeface typeFace) {
         this.typeFace = typeFace;
         updateViewData();
