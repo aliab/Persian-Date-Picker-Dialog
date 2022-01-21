@@ -10,7 +10,11 @@
         <attr name="displayMonthNames" format="boolean" />
         <attr name="yearRange" format="integer" />
         <attr name="displayDescription" format="boolean" />
+        <attr name="fontFamily"/>
+        <attr name="background"/>
+        <attr name="backgroundColor"/>
     </declare-styleable>
+
     <attr name="numberPickerTheme" format="reference"/>
 
 </resources>

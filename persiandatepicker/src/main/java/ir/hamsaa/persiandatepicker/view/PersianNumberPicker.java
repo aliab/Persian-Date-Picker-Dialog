@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.hamsaa.persiandatepicker.PersianDatePicker;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 
 /**
@@ -61,6 +62,8 @@ public class PersianNumberPicker extends NumberPicker {
         if (view instanceof TextView) {
             if (PersianDatePickerDialog.typeFace != null)
                 ((TextView) view).setTypeface(PersianDatePickerDialog.typeFace);
+            if (PersianDatePicker.typeFace != null)
+                ((TextView) view).setTypeface(PersianDatePicker.typeFace);
         }
     }
 

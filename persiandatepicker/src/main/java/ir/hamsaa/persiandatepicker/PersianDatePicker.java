@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.Date;
 
@@ -28,7 +29,7 @@ import ir.hamsaa.persiandatepicker.util.PersianHelper;
 import ir.hamsaa.persiandatepicker.view.PersianNumberPicker;
 
 
-class PersianDatePicker extends LinearLayout {
+public class PersianDatePicker extends LinearLayout {
 
     private PersianPickerDate persianDate;
     private int selectedMonth;
@@ -47,7 +48,7 @@ class PersianDatePicker extends LinearLayout {
 
     private boolean displayDescription;
     private final TextView descriptionTextView;
-    private Typeface typeFace;
+    public static Typeface typeFace;
     private int dividerColor;
     private int yearRange;
 
@@ -62,6 +63,13 @@ class PersianDatePicker extends LinearLayout {
     public PersianDatePicker(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PersianDatePicker, 0, 0);
+        yearRange = a.getInteger(R.styleable.PersianDatePicker_yearRange, 10);
+
+        typeFace = ResourcesCompat.getFont(context, a.getResourceId(R.styleable.PersianDatePicker_fontFamily, 0));
+
+
         // inflate views
         View view = LayoutInflater.from(context).inflate(R.layout.sl_persian_date_picker, this);
 
@@ -70,7 +78,6 @@ class PersianDatePicker extends LinearLayout {
         monthNumberPicker = view.findViewById(R.id.monthNumberPicker);
         dayNumberPicker = view.findViewById(R.id.dayNumberPicker);
         descriptionTextView = view.findViewById(R.id.descriptionTextView);
-
 
         yearNumberPicker.setFormatter(new NumberPicker.Formatter() {
             @Override
@@ -96,17 +103,6 @@ class PersianDatePicker extends LinearLayout {
         // init calendar
         persianDate = new PersianDateImpl();
 
-        // update variables from xml
-        updateVariablesFromXml(context, attrs);
-
-        // update view
-        updateViewData();
-    }
-
-    private void updateVariablesFromXml(Context context, AttributeSet attrs) {
-
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PersianDatePicker, 0, 0);
-        yearRange = a.getInteger(R.styleable.PersianDatePicker_yearRange, 10);
         /*
          * Initializing yearNumberPicker min and max values If minYear and
          * maxYear attributes are not set, use (current year - 10) as min and
@@ -131,6 +127,14 @@ class PersianDatePicker extends LinearLayout {
         if (maxYear < selectedYear) {
             maxYear = selectedYear + yearRange;
         }
+
+        if (a.hasValue(R.styleable.PersianDatePicker_background))
+            setBackgroundDrawable(a.getResourceId(R.styleable.PersianDatePicker_background, 0));
+        if (a.hasValue(R.styleable.PersianDatePicker_backgroundColor))
+            setBackgroundColor(a.getColor(R.styleable.PersianDatePicker_backgroundColor, 0));
+
+        // update view
+        updateViewData();
 
         a.recycle();
     }
@@ -207,11 +211,11 @@ class PersianDatePicker extends LinearLayout {
             dayNumberPicker.setTypeFace(typeFace);
         }
 
-        if (dividerColor > 0) {
+
             setDividerColor(yearNumberPicker, dividerColor);
             setDividerColor(monthNumberPicker, dividerColor);
             setDividerColor(dayNumberPicker, dividerColor);
-        }
+
 
         yearNumberPicker.setMinValue(minYear);
         yearNumberPicker.setMaxValue(maxYear);
