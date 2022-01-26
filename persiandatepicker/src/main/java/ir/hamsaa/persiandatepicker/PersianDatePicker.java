@@ -67,7 +67,8 @@ public class PersianDatePicker extends LinearLayout {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.PersianDatePicker, 0, 0);
         yearRange = a.getInteger(R.styleable.PersianDatePicker_yearRange, 10);
 
-        typeFace = ResourcesCompat.getFont(context, a.getResourceId(R.styleable.PersianDatePicker_fontFamily, 0));
+        if (a.hasValue(R.styleable.PersianDatePicker_fontFamily))
+            typeFace = ResourcesCompat.getFont(context, a.getResourceId(R.styleable.PersianDatePicker_fontFamily, 0));
 
 
         // inflate views
@@ -212,9 +213,9 @@ public class PersianDatePicker extends LinearLayout {
         }
 
 
-            setDividerColor(yearNumberPicker, dividerColor);
-            setDividerColor(monthNumberPicker, dividerColor);
-            setDividerColor(dayNumberPicker, dividerColor);
+        setDividerColor(yearNumberPicker, dividerColor);
+        setDividerColor(monthNumberPicker, dividerColor);
+        setDividerColor(dayNumberPicker, dividerColor);
 
 
         yearNumberPicker.setMinValue(minYear);
