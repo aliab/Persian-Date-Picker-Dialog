@@ -3,33 +3,32 @@ package ir.hamsaa.persiandatepicker.date;
 import java.util.Date;
 
 import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
-import saman.zamani.persiandate.PersianDate;
 
 public class PersianDateImpl implements PersianPickerDate {
 
-    private PersianDate persianDate;
+    private PersianDateFixedLeapYear persianDate;
 
     public PersianDateImpl() {
-        persianDate = new PersianDate();
+        persianDate = new PersianDateFixedLeapYear();
     }
 
     @Override
     public void setDate(Long timestamp) {
-        persianDate = new PersianDate(timestamp);
+        persianDate = new PersianDateFixedLeapYear(timestamp);
     }
 
     @Override
     public void setDate(Date date) {
-        persianDate = new PersianDate(date);
+        persianDate = new PersianDateFixedLeapYear(date);
     }
 
     @Override
     public void setDate(int persianYear, int persianMonth, int persianDay) {
-        try{
+        try {
             persianDate.setShYear(persianYear);
             persianDate.setShMonth(persianMonth);
             persianDate.setShDay(persianDay);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -92,5 +91,14 @@ public class PersianDateImpl implements PersianPickerDate {
     @Override
     public long getTimestamp() {
         return persianDate.getTime();
+    }
+
+    @Override
+    public boolean isLeapYear() {
+        return persianDate.isLeap();
+    }
+
+    public static boolean isLeapYear(int year) {
+        return new PersianDateFixedLeapYear().isLeap(year);
     }
 }

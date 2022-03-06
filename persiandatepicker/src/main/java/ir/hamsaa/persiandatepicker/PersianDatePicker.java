@@ -286,7 +286,7 @@ class PersianDatePicker extends LinearLayout {
         @Override
         public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
             int year = yearNumberPicker.getValue();
-            boolean isLeapYear = PersianCalendarUtils.isPersianLeapYear(year);
+            boolean isLeapYear = PersianDateImpl.isLeapYear(year);
 
             int month = monthNumberPicker.getValue();
             int day = dayNumberPicker.getValue();

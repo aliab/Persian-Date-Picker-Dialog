@@ -10,13 +10,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
 import ir.hamsaa.persiandatepicker.api.PersianPickerListener;
+import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
-import ir.hamsaa.persiandatepicker.util.PersianCalendarUtils;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,13 +42,12 @@ public class MainActivity extends AppCompatActivity {
                 .setTodayButtonVisible(true)
                 .setMinYear(1300)
                 .setAllButtonsTextSize(12)
-                .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
+                .setMaxYear(1500)
                 .setInitDate(1370, 3, 13)
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
-                .setShowDayPicker(false)
-
-                .setTitleType(PersianDatePickerDialog.MONTH_YEAR)
+//                .setShowDayPicker(false)
+                .setTitleType(PersianDatePickerDialog.DAY_MONTH_YEAR)
                 .setShowInBottomSheet(true)
                 .setListener(new PersianPickerListener() {
                     @Override
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "onDateSelected: " + persianPickerDate.getGregorianDate());//Mon Jun 03 10:57:28 GMT+04:30 1991
                         Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianLongDate());// دوشنبه  13  خرداد  1370
                         Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianMonthName());//خرداد
-                        Log.d(TAG, "onDateSelected: " + PersianCalendarUtils.isPersianLeapYear(persianPickerDate.getPersianYear()));//true
+                        Log.d(TAG, "onDateSelected: " + PersianDateImpl.isLeapYear(persianPickerDate.getPersianYear()));//true
                         Toast.makeText(MainActivity.this, persianPickerDate.getPersianYear() + "/" + persianPickerDate.getPersianMonth() + "/" + persianPickerDate.getPersianDay(), Toast.LENGTH_SHORT).show();
                     }
 

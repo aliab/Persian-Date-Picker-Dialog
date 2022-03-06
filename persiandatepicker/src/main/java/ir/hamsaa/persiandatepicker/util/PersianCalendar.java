@@ -22,6 +22,8 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
+
 /**
  *
  * <strong> Persian(Shamsi) calendar </strong>
@@ -175,7 +177,7 @@ public class PersianCalendar extends GregorianCalendar {
 	 */
 	public boolean isPersianLeapYear() {
 		// calculatePersianDate();
-		return PersianCalendarUtils.isPersianLeapYear(this.persianYear);
+		return PersianDateImpl.isLeapYear(this.persianYear);
 	}
 
 	/**
