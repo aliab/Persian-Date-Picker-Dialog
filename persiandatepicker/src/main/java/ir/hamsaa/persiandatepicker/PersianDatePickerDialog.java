@@ -39,6 +39,7 @@ public class PersianDatePickerDialog {
     public static final int NO_TITLE = 0;
     public static final int DAY_MONTH_YEAR = 1;
     public static final int WEEKDAY_DAY_MONTH_YEAR = 2;
+    public static final int MONTH_YEAR = 3;
 
     private Context context;
     private String positiveButtonString = "تایید";
@@ -61,6 +62,7 @@ public class PersianDatePickerDialog {
     private int titleColor = Color.parseColor("#111111");
     private boolean cancelable = true;
     private boolean forceMode;
+    private boolean isShowDayPicker = true;
     private int pickerBackgroundColor;
     private int pickerBackgroundDrawable;
     private int titleType = 0;
@@ -180,6 +182,11 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setShowDayPicker(boolean showDayPicker) {
+        this.isShowDayPicker = showDayPicker;
+        return this;
+    }
+
     public PersianDatePickerDialog setTodayTextSize(int sizeInt) {
         this.todayTextSize = sizeInt;
         return this;
@@ -270,7 +277,7 @@ public class PersianDatePickerDialog {
 
         container.setBackgroundColor(backgroundColor);
         dateText.setTextColor(titleColor);
-
+        datePickerView.setDayVisibility(isShowDayPicker);
 
         if (pickerBackgroundColor != 0) {
             datePickerView.setBackgroundColor(pickerBackgroundColor);
@@ -436,6 +443,11 @@ public class PersianDatePickerDialog {
                 date = persianDate.getPersianDayOfWeekName() + " " +
                         persianDate.getPersianDay() + " " +
                         persianDate.getPersianMonthName() + " " +
+                        persianDate.getPersianYear();
+                dateText.setText(PersianHelper.toPersianNumber(date));
+                break;
+            case MONTH_YEAR:
+                date = persianDate.getPersianMonthName() + " " +
                         persianDate.getPersianYear();
 
                 dateText.setText(PersianHelper.toPersianNumber(date));
