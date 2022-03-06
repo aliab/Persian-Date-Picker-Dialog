@@ -8,6 +8,9 @@ import saman.zamani.persiandate.PersianDate;
 
 public class PersianDateFixedLeapYear extends PersianDate {
 
+    /**
+     * Thanks to <a href="https://github.com/persian-calendar/calendar/blob/3294e3929bf986fe8fa27c606694360cb1bded01/src/main/java/io/github/persiancalendar/calendar/persian/LookupTableConverter.java#L14">Persian Calendar Project</>
+     */
     private final List<Integer> leapYears = Arrays.asList(
             1210, 1214, 1218, 1222, 1226, 1230, 1234, 1238, 1243, 1247, 1251, 1255, 1259, 1263,
             1267, 1271, 1276, 1280, 1284, 1288, 1292, 1296, 1300, 1304, 1309, 1313, 1317, 1321,
