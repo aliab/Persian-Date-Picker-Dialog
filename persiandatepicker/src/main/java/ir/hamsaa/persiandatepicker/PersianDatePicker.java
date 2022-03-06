@@ -23,7 +23,6 @@ import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
 import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 import ir.hamsaa.persiandatepicker.util.PersianCalendarConstants;
-import ir.hamsaa.persiandatepicker.util.PersianCalendarUtils;
 import ir.hamsaa.persiandatepicker.util.PersianHelper;
 import ir.hamsaa.persiandatepicker.view.PersianNumberPicker;
 
@@ -264,7 +263,7 @@ class PersianDatePicker extends LinearLayout {
         if (selectedMonth > 6 && selectedMonth < 12 && selectedDay == 31) {
             selectedDay = 30;
         } else {
-            boolean isLeapYear = PersianCalendarUtils.isPersianLeapYear(selectedYear);
+            boolean isLeapYear = PersianDateImpl.isLeapYear(selectedYear);
             if (isLeapYear && selectedDay == 31) {
                 selectedDay = 30;
             } else if (selectedDay > 29) {

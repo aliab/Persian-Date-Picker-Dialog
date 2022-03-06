@@ -18,6 +18,7 @@
  */
 package ir.hamsaa.persiandatepicker.util;
 
+
 /**
  * algorithms for converting Julian days to the Persian calendar, and vice versa
  * are adopted from <a
@@ -30,6 +31,7 @@ package ir.hamsaa.persiandatepicker.util;
  * @version 1.0
  * 
  */
+@Deprecated
 public class PersianCalendarUtils {
 
 	/**

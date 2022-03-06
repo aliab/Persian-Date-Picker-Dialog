@@ -41,6 +41,7 @@ import ir.hamsaa.persiandatepicker.date.PersianDateImpl;
  *         href="mailto:Mortezaadi@gmail.com">Mortezaadi@gmail.com</a>
  * @version 1.0
  */
+@Deprecated
 public class PersianDateParser {
 
     private String dateString;
