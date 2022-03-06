@@ -39,8 +39,9 @@ public class PersianDatePickerDialog {
     public static final int NO_TITLE = 0;
     public static final int DAY_MONTH_YEAR = 1;
     public static final int WEEKDAY_DAY_MONTH_YEAR = 2;
+    public static final int MONTH_YEAR = 3;
 
-    private Context context;
+    private final Context context;
     private String positiveButtonString = "تایید";
     private String negativeButtonString = "انصراف";
     private Listener listener;
@@ -49,7 +50,7 @@ public class PersianDatePickerDialog {
     private int maxMonth = 0;
     private int maxDay = 0;
     private int minYear = 0;
-    private PersianPickerDate initDate = new PersianDateImpl();
+    private final PersianPickerDate initDate = new PersianDateImpl();
     public static Typeface typeFace;
     private String todayButtonString = "امروز";
     private boolean todayButtonVisibility = false;
@@ -61,6 +62,7 @@ public class PersianDatePickerDialog {
     private int titleColor = Color.parseColor("#111111");
     private boolean cancelable = true;
     private boolean forceMode;
+    private boolean isShowDayPicker = true;
     private int pickerBackgroundColor;
     private int pickerBackgroundDrawable;
     private int titleType = 0;
@@ -180,6 +182,11 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setShowDayPicker(boolean showDayPicker) {
+        this.isShowDayPicker = showDayPicker;
+        return this;
+    }
+
     public PersianDatePickerDialog setTodayTextSize(int sizeInt) {
         this.todayTextSize = sizeInt;
         return this;
@@ -260,6 +267,7 @@ public class PersianDatePickerDialog {
 
     public void show() {
 
+        PersianDateImpl persianDate = new PersianDateImpl();
         View v = View.inflate(context, R.layout.dialog_picker, null);
         final PersianDatePicker datePickerView = v.findViewById(R.id.datePicker);
         final TextView dateText = v.findViewById(R.id.dateText);
@@ -270,7 +278,7 @@ public class PersianDatePickerDialog {
 
         container.setBackgroundColor(backgroundColor);
         dateText.setTextColor(titleColor);
-
+        datePickerView.setDayVisibility(isShowDayPicker);
 
         if (pickerBackgroundColor != 0) {
             datePickerView.setBackgroundColor(pickerBackgroundColor);
@@ -281,28 +289,28 @@ public class PersianDatePickerDialog {
         if (maxYear > 0) {
             datePickerView.setMaxYear(maxYear);
         } else if (maxYear == THIS_YEAR) {
-            maxYear = new PersianDateImpl().getPersianYear();
+            maxYear = persianDate.getPersianYear();
             datePickerView.setMaxYear(maxYear);
         }
 
         if (maxMonth > 0) {
             datePickerView.setMaxMonth(maxMonth);
         } else if (maxMonth == THIS_MONTH) {
-            maxMonth = new PersianDateImpl().getPersianMonth();
+            maxMonth = persianDate.getPersianMonth();
             datePickerView.setMaxMonth(maxMonth);
         }
 
         if (maxDay > 0) {
             datePickerView.setMaxDay(maxDay);
         } else if (maxDay == THIS_DAY) {
-            maxDay = new PersianDateImpl().getPersianDay();
+            maxDay = persianDate.getPersianDay();
             datePickerView.setMaxDay(maxDay);
         }
 
         if (minYear > 0) {
             datePickerView.setMinYear(minYear);
         } else if (minYear == THIS_YEAR) {
-            minYear = new PersianDateImpl().getPersianYear();
+            minYear = persianDate.getPersianYear();
             datePickerView.setMinYear(minYear);
         }
 
@@ -436,6 +444,11 @@ public class PersianDatePickerDialog {
                 date = persianDate.getPersianDayOfWeekName() + " " +
                         persianDate.getPersianDay() + " " +
                         persianDate.getPersianMonthName() + " " +
+                        persianDate.getPersianYear();
+                dateText.setText(PersianHelper.toPersianNumber(date));
+                break;
+            case MONTH_YEAR:
+                date = persianDate.getPersianMonthName() + " " +
                         persianDate.getPersianYear();
 
                 dateText.setText(PersianHelper.toPersianNumber(date));
