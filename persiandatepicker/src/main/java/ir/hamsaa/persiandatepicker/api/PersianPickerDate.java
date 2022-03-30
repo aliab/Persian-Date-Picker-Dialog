@@ -37,4 +37,6 @@ public interface PersianPickerDate {
 
     long getTimestamp();
 
+    boolean isLeapYear();
+
 }
