@@ -57,15 +57,6 @@ public class PersianCalendarUtils {
 	}
 
 	/**
-	 * Calculate whether current year is Leap year in persian or not
-	 * 
-	 * @return boolean
-	 */
-	public static boolean isPersianLeapYear(int persianYear) {
-		return PersianCalendarUtils.ceil((38D + (PersianCalendarUtils.ceil(persianYear - 474L, 2820L) + 474L)) * 682D, 2816D) < 682L;
-	}
-
-	/**
 	 * Converts a provided Julian Day Number (i.e. the number of days since
 	 * January 1 in the year 4713 BC) to the Persian (Shamsi) date. Since the
 	 * Persian calendar is a highly regular calendar, converting to and from a
