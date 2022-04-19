@@ -5,7 +5,7 @@ import saman.zamani.persiandate.PersianDateFormat;
 
 public class PersianDateHelper {
 
-    public boolean isValidDate(String date) {
+    static public boolean isValidDate(String date) {
         try {
             return !parseAndFormatDate(date).isEmpty();
         } catch (Throwable ignore) {
@@ -14,7 +14,7 @@ public class PersianDateHelper {
         return false;
     }
 
-    public String parseAndFormatDate(String date) {
+    static public String parseAndFormatDate(String date) {
         try {
             return PersianDateFormat.format(new PersianDateFormat("yyyy/MM/dd").parse(date), "Y/m/d");
         } catch (Throwable ignore) {
@@ -23,7 +23,7 @@ public class PersianDateHelper {
         return "";
     }
 
-    public String formatDate(PersianDate date) {
+    static public String formatDate(PersianDate date) {
         try {
             return PersianDateFormat.format(date, "Y/m/d");
         } catch (Throwable ignore) {
@@ -32,7 +32,7 @@ public class PersianDateHelper {
         return "";
     }
 
-    public String formatTime(PersianDate time) {
+    static public String formatTime(PersianDate time) {
         try {
             return PersianDateFormat.format(time, "H:i:s");
         } catch (Throwable ignore) {
