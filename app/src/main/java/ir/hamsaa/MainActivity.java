@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 .setPickerBackgroundDrawable(R.drawable.darkmode_bg)
                 .setTitleType(PersianDatePickerDialog.MONTH_YEAR)
                 .setShowDayPicker(false)
-
                 .setCancelable(false)
                 .setListener(new Listener() {
                     @Override
