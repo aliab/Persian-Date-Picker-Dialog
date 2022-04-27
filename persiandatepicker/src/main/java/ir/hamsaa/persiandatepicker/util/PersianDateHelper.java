@@ -17,10 +17,18 @@ public class PersianDateHelper {
     }
 
     static public PersianDate parseDate(String date) {
-        return parseDate(date, "yyyy/MM/dd");
+        return parseDateTime(date, "yyyy/MM/dd");
     }
 
-    static public PersianDate parseDate(String date, String pattern) {
+    static public PersianDate parseTime(String date) {
+        return parseDateTime(date, "HH:mm:ss");
+    }
+
+    static public PersianDate parseDateTime(String datetime) {
+        return parseDateTime(datetime, "yyyy/MM/dd HH:mm:ss");
+    }
+
+    static public PersianDate parseDateTime(String date, String pattern) {
         try {
             return new PersianDateFormat(pattern).parse(date);
         } catch (ParseException ignore) {
@@ -30,7 +38,7 @@ public class PersianDateHelper {
 
     static public String parseAndFormatDate(String date) {
         try {
-            return PersianDateFormat.format(parseDate(date), "Y/m/d");
+            return PersianDateFormat.format(parseDateTime(date), "Y/m/d");
         } catch (Throwable ignore) {
 
         }
