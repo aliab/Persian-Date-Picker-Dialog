@@ -38,7 +38,7 @@ public class PersianDateHelper {
 
     static public String parseAndFormatDate(String date) {
         try {
-            return PersianDateFormat.format(parseDateTime(date), "Y/m/d");
+            return PersianDateFormat.format(parseDate(date), "Y/m/d");
         } catch (Throwable ignore) {
 
         }
