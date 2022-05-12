@@ -379,6 +379,10 @@ public class PersianDatePickerDialog {
                 if (listener != null) {
                     listener.onDismissed();
                 }
+
+                if (persianPickerListener != null){
+                    persianPickerListener.onDismissed();
+                }
                 dialog.dismiss();
             }
         });
