@@ -58,6 +58,7 @@ public class PersianDatePickerDialog {
     private int actionTextSize = 12;
     private int negativeTextSize = 12;
     private int todayTextSize = 12;
+    public static int datesTextSize = 12;
     private int backgroundColor = Color.WHITE;
     private int titleColor = Color.parseColor("#111111");
     private boolean cancelable = true;
@@ -189,6 +190,11 @@ public class PersianDatePickerDialog {
 
     public PersianDatePickerDialog setTodayTextSize(int sizeInt) {
         this.todayTextSize = sizeInt;
+        return this;
+    }
+
+    public PersianDatePickerDialog setDatesTextSize(int sizeInt) {
+        PersianDatePickerDialog.datesTextSize = sizeInt;
         return this;
     }
 
