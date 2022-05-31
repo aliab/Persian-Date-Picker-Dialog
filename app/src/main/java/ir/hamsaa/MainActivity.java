@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
                 .setTodayButtonVisible(true)
                 .setMinYear(1300)
                 .setAllButtonsTextSize(12)
+                .setDisableDatesEditing(true)
+                .setTitleTextSize(16)
                 .setMaxYear(1500)
                 .setInitDate(1370, 3, 13)
                 .setActionTextColor(Color.GRAY)

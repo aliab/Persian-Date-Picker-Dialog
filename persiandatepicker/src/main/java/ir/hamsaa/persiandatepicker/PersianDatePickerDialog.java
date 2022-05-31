@@ -58,7 +58,9 @@ public class PersianDatePickerDialog {
     private int actionTextSize = 12;
     private int negativeTextSize = 12;
     private int todayTextSize = 12;
+    private int titleTextSize = 12;
     public static int datesTextSize = 12;
+    public static boolean disableDatesEditing = false;
     private int backgroundColor = Color.WHITE;
     private int titleColor = Color.parseColor("#111111");
     private boolean cancelable = true;
@@ -198,6 +200,11 @@ public class PersianDatePickerDialog {
         return this;
     }
 
+    public PersianDatePickerDialog setDisableDatesEditing(boolean isDisable) {
+        PersianDatePickerDialog.disableDatesEditing = isDisable;
+        return this;
+    }
+
     public PersianDatePickerDialog setNegativeButton(String negativeButton) {
         this.negativeButtonString = negativeButton;
         return this;
@@ -210,6 +217,11 @@ public class PersianDatePickerDialog {
 
     public PersianDatePickerDialog setNegativeTextSize(int sizeInt) {
         this.negativeTextSize = sizeInt;
+        return this;
+    }
+
+    public PersianDatePickerDialog setTitleTextSize(int sizeInt) {
+        this.titleTextSize = sizeInt;
         return this;
     }
 
@@ -432,6 +444,8 @@ public class PersianDatePickerDialog {
     }
 
     private void updateView(TextView dateText, PersianPickerDate persianDate) {
+        dateText.setTextSize(titleTextSize);
+
         String date;
         switch (titleType) {
             case NO_TITLE:

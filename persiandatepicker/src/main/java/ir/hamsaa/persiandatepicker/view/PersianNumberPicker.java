@@ -59,6 +59,9 @@ public class PersianNumberPicker extends NumberPicker {
                 ((TextView) view).setTypeface(PersianDatePickerDialog.typeFace);
 
             ((TextView) view).setTextSize(PersianDatePickerDialog.datesTextSize);
+
+            if (PersianDatePickerDialog.disableDatesEditing)
+                setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         }
     }
 
