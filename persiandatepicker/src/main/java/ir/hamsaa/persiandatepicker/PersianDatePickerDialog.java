@@ -128,11 +128,12 @@ public class PersianDatePickerDialog {
 
     public PersianDatePickerDialog setInitDate(int persianYear, int persianMonth, int persianDay) {
         this.initDate.setDate(persianYear, persianMonth, persianDay);
+        this.forceMode = true;
         return this;
     }
 
     public PersianDatePickerDialog setInitDate(PersianPickerDate initDate) {
-        return setInitDate(initDate, false);
+        return setInitDate(initDate, true);
     }
 
     public PersianDatePickerDialog setInitDate(PersianPickerDate initDate, boolean force) {
