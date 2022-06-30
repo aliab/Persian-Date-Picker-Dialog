@@ -2,6 +2,8 @@ package ir.hamsaa.persiandatepicker.api;
 
 import java.util.Date;
 
+import ir.hamsaa.persiandatepicker.date.PersianDateFixedLeapYear;
+
 public interface PersianPickerDate {
 
     void setDate(Long timestamp);
@@ -9,6 +11,8 @@ public interface PersianPickerDate {
     void setDate(Date date);
 
     void setDate(int persianYear, int persianMonth, int persianDay);
+
+    PersianDateFixedLeapYear getPersianDate();
 
     int getPersianYear();
 

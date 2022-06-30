@@ -19,7 +19,12 @@ android {
 }
 
 dependencies {
+
+    implementation "androidx.appcompat:appcompat:$appCompat"
+    implementation "com.google.android.material:material:$material"
+
     implementation project(":persiandatepicker")
+
 }
 repositories {
     mavenCentral()

@@ -34,6 +34,11 @@ public class PersianDateImpl implements PersianPickerDate {
     }
 
     @Override
+    public PersianDateFixedLeapYear getPersianDate() {
+        return persianDate;
+    }
+
+    @Override
     public int getPersianYear() {
         return persianDate.getShYear();
     }
