@@ -1,9 +1,9 @@
 package ir.hamsaa.persiandatepicker;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,8 +40,9 @@ public class PersianDatePickerDialog {
     public static final int DAY_MONTH_YEAR = 1;
     public static final int WEEKDAY_DAY_MONTH_YEAR = 2;
     public static final int MONTH_YEAR = 3;
-
+    public static Typeface typeFace;
     private final Context context;
+    private final PersianPickerDate initDate = new PersianDateImpl();
     private String positiveButtonString = "تایید";
     private String negativeButtonString = "انصراف";
     private Listener listener;
@@ -50,21 +51,19 @@ public class PersianDatePickerDialog {
     private int maxMonth = 0;
     private int maxDay = 0;
     private int minYear = 0;
-    private final PersianPickerDate initDate = new PersianDateImpl();
-    public static Typeface typeFace;
     private String todayButtonString = "امروز";
     private boolean todayButtonVisibility = false;
-    private int actionColor = Color.GRAY;
-    private int actionTextSize = 12;
-    private int negativeTextSize = 12;
-    private int todayTextSize = 12;
-    private int backgroundColor = Color.WHITE;
-    private int titleColor = Color.parseColor("#111111");
+    private int actionColor = -1;
+    private int actionTextSize = -1;
+    private int negativeTextSize = -1;
+    private int todayTextSize = -1;
+    private int backgroundColor = -1;
+    private int titleColor = -1;
     private boolean cancelable = true;
     private boolean forceMode;
     private boolean isShowDayPicker = true;
-    private int pickerBackgroundColor;
-    private int pickerBackgroundDrawable;
+    private int pickerBackgroundColor = -1;
+    private int pickerBackgroundDrawable = -1;
     private int titleType = 0;
     private boolean showInBottomSheet;
 
@@ -277,13 +276,19 @@ public class PersianDatePickerDialog {
         final AppCompatButton todayButton = v.findViewById(R.id.today_button);
         final LinearLayout container = v.findViewById(R.id.container);
 
-        container.setBackgroundColor(backgroundColor);
-        dateText.setTextColor(titleColor);
+        if (backgroundColor != -1) {
+            container.setBackgroundColor(backgroundColor);
+        }
+        if (titleColor != -1) {
+
+            dateText.setTextColor(titleColor);
+        }
+
         datePickerView.setDayVisibility(isShowDayPicker);
 
-        if (pickerBackgroundColor != 0) {
+        if (pickerBackgroundColor != -1) {
             datePickerView.setBackgroundColor(pickerBackgroundColor);
-        } else if (pickerBackgroundDrawable != 0) {
+        } else if (pickerBackgroundDrawable != -1) {
             datePickerView.setBackgroundDrawable(pickerBackgroundDrawable);
         }
 
@@ -336,13 +341,21 @@ public class PersianDatePickerDialog {
             datePickerView.setTypeFace(typeFace);
         }
 
-        positiveButton.setTextSize(actionTextSize);
-        negativeButton.setTextSize(negativeTextSize);
-        todayButton.setTextSize(todayTextSize);
+        if (actionTextSize != -1) {
+            positiveButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, actionTextSize);
+        }
+        if (negativeTextSize != -1) {
+            negativeButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, negativeTextSize);
+        }
+        if (todayTextSize != -1) {
+            todayButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, todayTextSize);
+        }
 
-        positiveButton.setTextColor(actionColor);
-        negativeButton.setTextColor(actionColor);
-        todayButton.setTextColor(actionColor);
+        if (actionColor != -1) {
+            positiveButton.setTextColor(actionColor);
+            negativeButton.setTextColor(actionColor);
+            todayButton.setTextColor(actionColor);
+        }
 
         positiveButton.setText(positiveButtonString);
         negativeButton.setText(negativeButtonString);
@@ -381,7 +394,7 @@ public class PersianDatePickerDialog {
                     listener.onDismissed();
                 }
 
-                if (persianPickerListener != null){
+                if (persianPickerListener != null) {
                     persianPickerListener.onDismissed();
                 }
                 dialog.dismiss();

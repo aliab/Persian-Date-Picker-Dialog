@@ -6,15 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="ltr"
+
     android:orientation="vertical"
+    android:theme="?attr/numberPickerTheme"
     tools:ignore="RtlHardcoded,UnusedAttribute">
 
     <TextView
         android:id="@+id/dateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="32dp"
         android:gravity="center"
         android:textSize="16sp"
         tools:text="سه شنبه" />
@@ -23,34 +25,30 @@
         android:id="@+id/datePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="?attr/numberPickerTheme"
         app:displayMonthNames="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp">
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/positive_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/touchable_background"
-            android:padding="6dp"
-            android:textSize="12sp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="16dp"
             tools:text="ok" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/negative_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/touchable_background"
-            android:padding="6dp"
-            android:textSize="12sp"
+
+            android:layout_marginBottom="16dp"
             tools:text="cancel" />
 
         <View
@@ -58,13 +56,12 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/today_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/touchable_background"
-            android:padding="6dp"
-            android:textSize="12sp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
             android:visibility="gone"
             tools:text="today"
             tools:visibility="visible" />

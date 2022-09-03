@@ -22,7 +22,7 @@
             android:layout_marginEnd="2dp"
             android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:background="#fff" />
+            />
 
         <ir.hamsaa.persiandatepicker.view.PersianNumberPicker
             android:id="@+id/monthNumberPicker"
@@ -31,7 +31,7 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:background="#fff" />
+            />
 
         <ir.hamsaa.persiandatepicker.view.PersianNumberPicker
             android:id="@+id/dayNumberPicker"
@@ -41,8 +41,7 @@
             android:layout_marginLeft="2dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
-            android:layout_weight="1"
-            android:background="#fff" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <TextView
