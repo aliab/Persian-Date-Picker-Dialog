@@ -22,8 +22,8 @@ android {
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:$appCompat"
-    implementation "com.google.android.material:material:$material"
+    api "androidx.appcompat:appcompat:$appCompat"
+    api "com.google.android.material:material:$material"
     implementation "com.github.samanzamani:PersianDate:$persianDate"
 
 }
