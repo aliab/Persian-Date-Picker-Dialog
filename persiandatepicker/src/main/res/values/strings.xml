@@ -1,25 +1,25 @@
 <resources>
     <string name="app_name">PersianDatePicker</string>
 
-    <string name="farvardin">farvardin</string>
-    <string name="ordibehesht">ordibehesht</string>
-    <string name="khordad">khordad</string>
-    <string name="tir">tir</string>
-    <string name="mordad">mordad</string>
-    <string name="shahrivar">shahrivar</string>
-    <string name="mehr">mehr</string>
-    <string name="aban">aban</string>
-    <string name="azar">azar</string>
-    <string name="dey">dey</string>
-    <string name="bahman">bahman</string>
-    <string name="esfand">esfand</string>
+    <string name="farvardin">Farvardin</string>
+    <string name="ordibehesht">Ordibehesht</string>
+    <string name="khordad">Khordad</string>
+    <string name="tir">Tir</string>
+    <string name="mordad">Mordad</string>
+    <string name="shahrivar">Shahrivar</string>
+    <string name="mehr">Mehr</string>
+    <string name="aban">Aban</string>
+    <string name="azar">Azar</string>
+    <string name="dey">Dey</string>
+    <string name="bahman">Bahman</string>
+    <string name="esfand">Esfand</string>
 
-    <string name="shanbeh">shanbeh</string>
-    <string name="yekshanbeh">yekshanbeh</string>
-    <string name="doshanbeh">doshanbeh</string>
-    <string name="sehshanbeh">sehshanbeh</string>
-    <string name="chaharshanbeh">chaharshanbeh</string>
-    <string name="panjshanbeh">panjshanbeh</string>
-    <string name="jome">jome</string>
+    <string name="shanbeh">Shanbeh</string>
+    <string name="yekshanbeh">Yekshanbeh</string>
+    <string name="doshanbeh">Doshanbeh</string>
+    <string name="sehshanbeh">Sehshanbeh</string>
+    <string name="chaharshanbeh">Chaharshanbeh</string>
+    <string name="panjshanbeh">Panjshanbeh</string>
+    <string name="jome">Jome</string>
 
 </resources>
