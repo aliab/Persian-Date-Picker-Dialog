@@ -4,12 +4,8 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 
