@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PersianDatePicker</string>
+
+    <string name="farvardin">حمل</string>
+    <string name="ordibehesht">ثور</string>
+    <string name="khordad">جوزا</string>
+    <string name="tir">سرطان</string>
+    <string name="mordad">اسد</string>
+    <string name="shahrivar">سنبله</string>
+    <string name="mehr">میزان</string>
+    <string name="aban">عقرب</string>
+    <string name="azar">قوس</string>
+    <string name="dey">جدی</string>
+    <string name="bahman">دلو</string>
+    <string name="esfand">حوت</string>
+
+
+    <string name="shanbeh">خالی</string>
+    <string name="yekshanbeh">دوهم</string>
+    <string name="doshanbeh">ګول</string>
+    <string name="sehshanbeh">نهه</string>
+    <string name="chaharshanbeh">شروع</string>
+    <string name="panjshanbeh">زیارت</string>
+    <string name="jome">جمعه</string>
+</resources>

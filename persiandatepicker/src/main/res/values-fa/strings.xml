@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="farvardin">فروردین</string>
+    <string name="ordibehesht">اُردیبهشت</string>
+    <string name="khordad">خرداد</string>
+    <string name="tir">تیر</string>
+    <string name="mordad">مرداد</string>
+    <string name="shahrivar">شهریور</string>
+    <string name="mehr">مهر</string>
+    <string name="aban">آبان</string>
+    <string name="azar">آذر</string>
+    <string name="dey">دی</string>
+    <string name="bahman">بهمن</string>
+    <string name="esfand">اسفند</string>
+
+    <string name="shanbeh">شنبه</string>
+    <string name="yekshanbeh">یکشنبه</string>
+    <string name="doshanbeh">دوشنبه</string>
+    <string name="sehshanbeh">سه‌شنبه</string>
+    <string name="chaharshanbeh">چهارشنبه</string>
+    <string name="panjshanbeh">پنج‌شنبه</string>
+    <string name="jome">جمعه</string>
+
+</resources>
