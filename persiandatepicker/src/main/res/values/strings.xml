@@ -1,25 +1,26 @@
 <resources>
     <string name="app_name">PersianDatePicker</string>
 
-    <string name="farvardin">Farvardin</string>
-    <string name="ordibehesht">Ordibehesht</string>
-    <string name="khordad">Khordad</string>
-    <string name="tir">Tir</string>
-    <string name="mordad">Mordad</string>
-    <string name="shahrivar">Shahrivar</string>
-    <string name="mehr">Mehr</string>
-    <string name="aban">Aban</string>
-    <string name="azar">Azar</string>
-    <string name="dey">Dey</string>
-    <string name="bahman">Bahman</string>
-    <string name="esfand">Esfand</string>
+    <string name="farvardin">فروردین</string>
+    <string name="ordibehesht">اُردیبهشت</string>
+    <string name="khordad">خرداد</string>
+    <string name="tir">تیر</string>
+    <string name="mordad">مرداد</string>
+    <string name="shahrivar">شهریور</string>
+    <string name="mehr">مهر</string>
+    <string name="aban">آبان</string>
+    <string name="azar">آذر</string>
+    <string name="dey">دی</string>
+    <string name="bahman">بهمن</string>
+    <string name="esfand">اسفند</string>
 
-    <string name="shanbeh">Shanbeh</string>
-    <string name="yekshanbeh">Yekshanbeh</string>
-    <string name="doshanbeh">Doshanbeh</string>
-    <string name="sehshanbeh">Sehshanbeh</string>
-    <string name="chaharshanbeh">Chaharshanbeh</string>
-    <string name="panjshanbeh">Panjshanbeh</string>
-    <string name="jome">Jome</string>
+    <string name="shanbeh">شنبه</string>
+    <string name="yekshanbeh">یکشنبه</string>
+    <string name="doshanbeh">دوشنبه</string>
+    <string name="sehshanbeh">سه‌شنبه</string>
+    <string name="chaharshanbeh">چهارشنبه</string>
+    <string name="panjshanbeh">پنج‌شنبه</string>
+    <string name="jome">جمعه</string>
+
 
 </resources>
