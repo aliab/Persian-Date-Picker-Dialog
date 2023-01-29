@@ -33,6 +33,8 @@ import ir.hamsaa.persiandatepicker.util.PersianHelper;
 
 public class PersianDatePickerDialog {
 
+    private static final String TAG = "PersianDatePickerDialog";
+
     public static final int THIS_YEAR = -1;
     public static final int THIS_MONTH = -2;
     public static final int THIS_DAY = -3;
@@ -188,6 +190,9 @@ public class PersianDatePickerDialog {
 
     public PersianDatePickerDialog setShowDayPicker(boolean showDayPicker) {
         this.isShowDayPicker = showDayPicker;
+        if (!showDayPicker) {
+            setTitleType(MONTH_YEAR);
+        }
         return this;
     }
 
@@ -372,12 +377,7 @@ public class PersianDatePickerDialog {
 
         updateView(dateText, datePickerView.getPersianDate());
 
-        datePickerView.setOnDateChangedListener(new PersianDatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(int newYear, int newMonth, int newDay) {
-                updateView(dateText, datePickerView.getPersianDate());
-            }
-        });
+        datePickerView.setOnDateChangedListener((newYear, newMonth, newDay) -> updateView(dateText, datePickerView.getPersianDate()));
 
 
         final AppCompatDialog dialog;
@@ -392,57 +392,43 @@ public class PersianDatePickerDialog {
                     .create();
         }
 
-        negativeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (listener != null) {
-                    listener.onDismissed();
-                }
-
-                if (persianPickerListener != null){
-                    persianPickerListener.onDismissed();
-                }
-                dialog.dismiss();
+        negativeButton.setOnClickListener(view -> {
+            if (listener != null) {
+                listener.onDismissed();
             }
+
+            if (persianPickerListener != null) {
+                persianPickerListener.onDismissed();
+            }
+            dialog.dismiss();
         });
 
-        positiveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        positiveButton.setOnClickListener(view -> {
 
-                // for backward compatibility, still support this
-                if (listener != null) {
-                    listener.onDateSelected(datePickerView.getDisplayPersianDate());
-                }
-
-                if (persianPickerListener != null) {
-                    persianPickerListener.onDateSelected(datePickerView.getPersianDate());
-                }
-                dialog.dismiss();
+            // for backward compatibility, still support this
+            if (listener != null) {
+                listener.onDateSelected(datePickerView.getDisplayPersianDate());
             }
+
+            if (persianPickerListener != null) {
+                persianPickerListener.onDateSelected(datePickerView.getPersianDate());
+            }
+            dialog.dismiss();
         });
 
-        todayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        todayButton.setOnClickListener(view -> {
 
-                datePickerView.setDisplayDate(new Date());
+            datePickerView.setDisplayDate(new Date());
 
-                if (maxYear > 0) {
-                    datePickerView.setMaxYear(maxYear);
-                }
-
-                if (minYear > 0) {
-                    datePickerView.setMinYear(minYear);
-                }
-
-                dateText.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateView(dateText, datePickerView.getPersianDate());
-                    }
-                }, 100);
+            if (maxYear > 0) {
+                datePickerView.setMaxYear(maxYear);
             }
+
+            if (minYear > 0) {
+                datePickerView.setMinYear(minYear);
+            }
+
+            dateText.postDelayed(() -> updateView(dateText, datePickerView.getPersianDate()), 100);
         });
 
         dialog.show();
@@ -450,6 +436,10 @@ public class PersianDatePickerDialog {
 
     private void updateView(TextView dateText, PersianPickerDate persianDate) {
         dateText.setTextSize(titleTextSize);
+
+        if (!isShowDayPicker && (titleType == DAY_MONTH_YEAR || titleType == WEEKDAY_DAY_MONTH_YEAR)) {
+            Log.e(TAG, "You set to not show DAY picker but title type is set to show day!");
+        }
 
         String date;
         switch (titleType) {
