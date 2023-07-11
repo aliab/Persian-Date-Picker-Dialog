@@ -437,8 +437,10 @@ class PersianDatePicker extends LinearLayout {
 
     public void setDisplayPersianDate(PersianPickerDate displayPersianDate) {
 
+
         persianDate.setDate(displayPersianDate.getTimestamp());
-        
+
+        //Not important,You can delete. I put it just in case
         persianDate.setDateByUnix(displayPersianDate.getTimeUnix());
 
         final int year = persianDate.getPersianYear();

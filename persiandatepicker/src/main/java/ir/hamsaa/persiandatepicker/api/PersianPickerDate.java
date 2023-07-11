@@ -6,6 +6,7 @@ public interface PersianPickerDate {
 
     void setDate(Long timestamp);
 
+    //The input function takes a unixtime
     void setDateByUnix(Long UnixTimestamp);
 
     void setDate(Date date);
@@ -37,7 +38,10 @@ public interface PersianPickerDate {
 
     Date getGregorianDate();
 
+    //The function returns a unixtime
     long getTimestamp();
+
+
 
     long getTimeUnix();
 
