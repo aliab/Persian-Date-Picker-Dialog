@@ -6,6 +6,8 @@ public interface PersianPickerDate {
 
     void setDate(Long timestamp);
 
+    void setDateByUnix(Long UnixTimestamp);
+
     void setDate(Date date);
 
     void setDate(int persianYear, int persianMonth, int persianDay);
@@ -36,6 +38,8 @@ public interface PersianPickerDate {
     Date getGregorianDate();
 
     long getTimestamp();
+
+    long getTimeUnix();
 
     boolean isLeapYear();
 

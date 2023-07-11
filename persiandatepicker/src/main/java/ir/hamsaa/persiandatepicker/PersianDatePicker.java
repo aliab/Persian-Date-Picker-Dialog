@@ -438,6 +438,8 @@ class PersianDatePicker extends LinearLayout {
     public void setDisplayPersianDate(PersianPickerDate displayPersianDate) {
 
         persianDate.setDate(displayPersianDate.getTimestamp());
+        
+        persianDate.setDateByUnix(displayPersianDate.getTimeUnix());
 
         final int year = persianDate.getPersianYear();
         final int month = persianDate.getPersianMonth();
