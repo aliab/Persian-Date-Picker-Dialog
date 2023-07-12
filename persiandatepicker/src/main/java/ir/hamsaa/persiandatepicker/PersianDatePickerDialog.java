@@ -144,6 +144,8 @@ public class PersianDatePickerDialog {
     public PersianDatePickerDialog setInitDate(PersianPickerDate initDate, boolean force) {
         this.forceMode = force;
         this.initDate.setDate(initDate.getTimestamp());
+        //Not important,You can delete. I put it just in case
+        this.initDate.setDateByUnix(initDate.getTimeUnix());
         return this;
     }
 

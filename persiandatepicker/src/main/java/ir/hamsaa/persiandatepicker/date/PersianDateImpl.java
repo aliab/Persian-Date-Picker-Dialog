@@ -18,6 +18,11 @@ public class PersianDateImpl implements PersianPickerDate {
     }
 
     @Override
+    public void setDateByUnix(Long UnixTimestamp) {
+        persianDate = new PersianDateFixedLeapYear(UnixTimestamp*1000);
+    }
+
+    @Override
     public void setDate(Date date) {
         persianDate = new PersianDateFixedLeapYear(date);
     }
@@ -91,6 +96,11 @@ public class PersianDateImpl implements PersianPickerDate {
     @Override
     public long getTimestamp() {
         return persianDate.getTime();
+    }
+
+    @Override
+    public long getTimeUnix() {
+        return  persianDate.getTime()/1000;
     }
 
     @Override

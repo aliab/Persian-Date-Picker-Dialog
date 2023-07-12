@@ -49,12 +49,13 @@ public class MainActivity extends AppCompatActivity {
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(typeface)
 //                .setShowDayPicker(false)
-                .setTitleType(PersianDatePickerDialog.DAY_MONTH_YEAR)
+                .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
                 .setShowInBottomSheet(true)
                 .setListener(new PersianPickerListener() {
                     @Override
                     public void onDateSelected(PersianPickerDate persianPickerDate) {
                         Log.d(TAG, "onDateSelected: " + persianPickerDate.getTimestamp());//675930448000
+                        Log.d(TAG, "onDateSelected: " + persianPickerDate.getTimeUnix());//67593044
                         Log.d(TAG, "onDateSelected: " + persianPickerDate.getGregorianDate());//Mon Jun 03 10:57:28 GMT+04:30 1991
                         Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianLongDate());// دوشنبه  13  خرداد  1370
                         Log.d(TAG, "onDateSelected: " + persianPickerDate.getPersianMonthName());//خرداد

@@ -6,6 +6,9 @@ public interface PersianPickerDate {
 
     void setDate(Long timestamp);
 
+    //The input function takes a unixtime
+    void setDateByUnix(Long UnixTimestamp);
+
     void setDate(Date date);
 
     void setDate(int persianYear, int persianMonth, int persianDay);
@@ -35,7 +38,12 @@ public interface PersianPickerDate {
 
     Date getGregorianDate();
 
+    //The function returns a unixtime
     long getTimestamp();
+
+
+
+    long getTimeUnix();
 
     boolean isLeapYear();
 
